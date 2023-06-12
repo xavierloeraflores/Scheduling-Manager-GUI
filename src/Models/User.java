@@ -17,6 +17,7 @@ public class User {
     private String lastUpdateBy;
 
     /**
+     * Constructor method for the User object
      * @param userId : the integer value of the userId to be set on the User object
      * @param username the username string value to be set on the User object
      * @param password the password string value to be set on the User object
