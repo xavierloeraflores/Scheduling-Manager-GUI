@@ -1,6 +1,11 @@
 package Models;
 
 import java.time.LocalDateTime;
+
+/**
+ * A class representing the User object
+ * @author xavierloeraflores
+ */
 public class User {
 
     private int userId;
@@ -144,4 +149,4 @@ public class User {
         this.lastUpdateBy = lastUpdateBy;
     }
 
-};
+}
