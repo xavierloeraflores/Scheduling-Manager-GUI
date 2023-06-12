@@ -77,14 +77,14 @@ public class User {
      * @return the lastUpdate LocalDateTime value on the User object
      */
     public LocalDateTime getLastUpdate() {
-        return lastUpdate;
+        return this.lastUpdate;
     }
 
     /**
      * @return the lastUpdateBy string value on the User object
      */
     public String getLastUpdateBy() {
-        return lastUpdateBy;
+        return this.lastUpdateBy;
     }
 
     //Setters
