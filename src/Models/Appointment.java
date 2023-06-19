@@ -22,6 +22,23 @@ public class Appointment {
     private int userId;
     private int contactId;
 
+    /**
+     * Constructor method for the Appointment object
+     * @param appointmentId the appointmentId integer value to be set on the Appointment object
+     * @param title the title string value to be set on the Appointment object
+     * @param description the description string value to be set on the Appointment object
+     * @param location the location string value to be set on the Appointment object
+     * @param type the type string value to be set on the Appointment object
+     * @param start the start LocalDateTime value to be set on the Appointment object
+     * @param end the end LocalDateTime value to be set on the Appointment object
+     * @param createDate the createDate LocalDateTime value to be set on the Appointment object
+     * @param createdBy the createdBy string value to be set on the Appointment object
+     * @param lastUpdate the lastUpdate LocalDateTime value to be set on the Appointment object
+     * @param lastUpdatedBy the lastUpdatedBy string value to be set on the Appointment object
+     * @param customerId the customerId integer value to be set on the Appointment object
+     * @param userId the userId integer value to be set on the Appointment object
+     * @param contactId the contactId integer value to be set on the Appointment object
+     */
     public Appointment(int appointmentId, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, LocalDateTime createDate, String createdBy, LocalDateTime lastUpdate, String lastUpdatedBy, int customerId, int userId, int contactId) {
         this.appointmentId = appointmentId;
         this.title = title;
