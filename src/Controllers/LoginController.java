@@ -116,7 +116,7 @@ public class LoginController implements Initializable{
 
 
     /**
-     * Initializes the FXML Screen and sets the selectedPart and selectedProduct to null.
+     * Initializes the FXML Screen 
      * @param url parameter for the FXML Screen
      * @param resourceBundle parameter for the FXML Screen
      */
