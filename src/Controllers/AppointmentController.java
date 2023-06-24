@@ -80,12 +80,17 @@ public class AppointmentController implements Initializable{
     private TextField fieldCustomerId;
     @FXML
     private TextField fieldUserId;
+    
     @FXML
     private DatePicker dateStart;
     @FXML
     private DatePicker dateEnd;
     @FXML 
     private ComboBox comboContact;
+    @FXML
+    private Button buttonSave;
+    @FXML 
+    private Button buttonCancel;
 
 
 
