@@ -119,13 +119,14 @@ public class LoginController implements Initializable{
     /**
      * 
      */
-    public void handleLogin(ActionEvent actionEvent) throws IOException,SQLException, Exception {
+    public void handleLogin(ActionEvent actionEvent) throws IOException {
         try{
             user = null;
             Boolean validLogin = true;
             String errorMessage = "";
             String username = fieldUsername.getText();
             String password = fieldPassword.getText();
+            System.out.println("We made it");
             validLogin = !(Objects.equals(username, "") || Objects.equals(password, ""));
             if (!validLogin){errorMessage = "The username and password fields can not be empty";}
             else{
