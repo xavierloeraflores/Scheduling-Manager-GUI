@@ -46,8 +46,6 @@ public class CustomerController implements Initializable{
     @FXML
     private Label labelCountry;
     @FXML
-    private Label labelCountry;
-    @FXML
     private Label labelDivision;
     @FXML
     private Label labelUserId;
@@ -77,6 +75,8 @@ public class CustomerController implements Initializable{
     private ComboBox comboCountry;
     @FXML 
     private ComboBox comboDivision;
+
+    private String language;
 
 
 
@@ -122,7 +122,7 @@ public class CustomerController implements Initializable{
      * 
      */
     public Boolean validate(){
-
+        return true;
     }
 
     /**

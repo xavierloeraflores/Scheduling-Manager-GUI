@@ -92,6 +92,7 @@ public class AppointmentController implements Initializable{
     @FXML 
     private Button buttonCancel;
 
+    private String language;
 
 
 
@@ -136,7 +137,7 @@ public class AppointmentController implements Initializable{
      * 
      */
     public Boolean validate(){
-
+        return true;
     }
 
     /**
