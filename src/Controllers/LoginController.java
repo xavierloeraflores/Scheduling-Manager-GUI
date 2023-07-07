@@ -1,5 +1,6 @@
 package Controllers;
 
+import main.Logger;
 import Models.User;
 import Database.UserDataAccessObject;
 import javafx.collections.FXCollections;
@@ -110,14 +111,22 @@ public class LoginController implements Initializable{
         alert.showAndWait();
     }
 
-
+    /**
+     * Utility function that is used to log any sign in attempts
+     * @param valid Boolean value representing a successful log in
+     * @param username String value representing the username being attempted
+     */
     public void logAuthentication(Boolean valid, String username){
-
+        try{
+            Logger.log(valid, username);
+        }catch(Exception error){
+            System.out.println("Error:"+ error);
+        }
     }
 
-
     /**
-     * 
+     * Function that handles authentication
+     * @param actionEvent ActionEvent object that triggered this function
      */
     public void handleLogin(ActionEvent actionEvent) throws IOException {
         try{
@@ -126,16 +135,15 @@ public class LoginController implements Initializable{
             String errorMessage = "";
             String username = fieldUsername.getText();
             String password = fieldPassword.getText();
-            System.out.println("We made it");
             validLogin = !(Objects.equals(username, "") || Objects.equals(password, ""));
             if (!validLogin){errorMessage = "The username and password fields can not be empty";}
             else{
                 User userLogin = UserDataAccessObject.getUserByUsername(username);
                 validLogin = !(userLogin == null);
-                if(!validLogin){errorMessage = "Could not find a user with the provided username";}
+                if(!validLogin){ errorMessage = "Could not find a user with the provided username"; }
                 else{
                     validLogin = (Objects.equals(userLogin.getPassword(), password));
-                    if(!validLogin){errorMessage = "Passwords do not match";}
+                    if(!validLogin){ errorMessage = "Passwords do not match"; }
                     else{
                         user = userLogin;
                         logAuthentication(true, username);
@@ -146,16 +154,15 @@ public class LoginController implements Initializable{
             }
 
             labelError.setText(errorMessage);
-            if(!validLogin){logAuthentication(true, username);displayError("Error", "Log in Error",errorMessage );}
+            if(!validLogin){logAuthentication(false, username);displayError("Error", "Log in Error",errorMessage );}
         }catch(Exception error){
             displayError("Login Error", "Error Logging In","An error has occurred" );
         }
-
     }
 
 
     /**
-     * 
+     * Function that correctly maps all the labels to the correct language
      */
     public void mapLabels(){
 

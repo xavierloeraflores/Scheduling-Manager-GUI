@@ -21,16 +21,16 @@ public class Logger {
      */
     public static void log(Boolean valid, String username) throws IOException {
         try {
-            String successfulLogin = "Successful Login"
+            String successfulLogin = "Successful Login";
             if(!valid){successfulLogin="Failed Login";}
 
-            String time = ZonedDateTime.now(ZoneOffset.UTC).toString()
+            String time = ZonedDateTime.now(ZoneOffset.UTC).toString();
 
             String logFile = "login_activity.txt";
-            FileWriter fileWriter = new FileWriter(logFile, true)
+            FileWriter fileWriter = new FileWriter(logFile, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
-            bufferedWriter.append(time + "-" + userName + "-" + successfulLogin+ "\n");
+            bufferedWriter.append(time + "-" + username + "-" + successfulLogin+ "\n");
             bufferedWriter.close();
         }catch (IOException error) {
             System.out.println("Error: "+ error);
