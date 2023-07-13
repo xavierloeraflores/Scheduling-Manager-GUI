@@ -83,32 +83,7 @@ public class CustomerController implements Initializable{
 
 
 
-    /**
-     * Utility function that is used to display errors
-     * @param title String value text of the title
-     * @param header String value text of the header
-     * @param text String value text of the main text
-     */
-    public void displayError(String title, String header, String text)  {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(text);
-        alert.showAndWait();
-    }
 
-    /**
-     * Utility function that is used to switch between pages
-     * @param actionEvent JavaFX action event
-     * @throws IOException
-     */
-    public void openPage(ActionEvent actionEvent, String form) throws  IOException {
-        Parent addPartFXML = FXMLLoader.load(getClass().getResource(form));
-        Scene addPartScene = new Scene(addPartFXML);
-        Stage addPartStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        addPartStage.setScene(addPartScene);
-        addPartStage.show();
-    }
 
     /**
      * Handles the canceling functionality when a user presses the cancel button.
@@ -153,7 +128,7 @@ public class CustomerController implements Initializable{
 
 
         if(!valid){
-            displayError("Error", "An Error has occured", errorMessage);
+            displayError(errorMessage);
             labelError.setText(errorMessage);
         }
 
@@ -174,12 +149,7 @@ public class CustomerController implements Initializable{
     }
 
 
-    /**
-     * 
-     */
-    public void mapLabels(){
 
-    }
 
 
 
@@ -194,4 +164,37 @@ public class CustomerController implements Initializable{
         mapLabels();
 
     }
+
+    /**
+     * 
+     */
+    public void mapLabels(){
+
+    }
+
+        /**
+     * Utility function that is used to display errors
+     * @param text String value text of the main text
+     */
+    public void displayError( String text)  {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(rb.getString("ERROR"));
+        alert.setHeaderText(rb.getString("ERRORHEADER"));
+        alert.setContentText(text);
+        alert.showAndWait();
+    }
+
+    /**
+     * Utility function that is used to switch between pages
+     * @param actionEvent JavaFX action event
+     * @throws IOException
+     */
+    public void openPage(ActionEvent actionEvent, String form) throws  IOException {
+        Parent addPartFXML = FXMLLoader.load(getClass().getResource(form));
+        Scene addPartScene = new Scene(addPartFXML);
+        Stage addPartStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        addPartStage.setScene(addPartScene);
+        addPartStage.show();
+    }
+
 }
