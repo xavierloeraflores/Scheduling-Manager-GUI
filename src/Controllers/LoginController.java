@@ -64,7 +64,9 @@ public class LoginController implements Initializable{
 
 
     static private String language;
-    static private User user; 
+    static private User user;
+
+    static ResourceBundle rb;
 
 
 
@@ -171,7 +173,15 @@ public class LoginController implements Initializable{
      * 
      */
     public void mapLanguage(){
-        
+
+        language = "en";
+        String userLang = System.getProperty("user.language");
+        if(userLang == "fr" ){
+            language = "fr";
+        }
+        ResourceBundle rb = ResourceBundle.getBundle("bundle/resource");
+        System.out.println("Lang = "+ language + "----" + userLang);
+        System.out.println(rb.getString("TEST"));
     }
 
 
