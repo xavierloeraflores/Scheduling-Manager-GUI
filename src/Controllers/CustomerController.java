@@ -78,10 +78,24 @@ public class CustomerController implements Initializable{
 
     private String language;
 
+    private String errorMessage;
 
 
 
 
+    /**
+     * Utility function that is used to display errors
+     * @param title String value text of the title
+     * @param header String value text of the header
+     * @param text String value text of the main text
+     */
+    public void displayError(String title, String header, String text)  {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(text);
+        alert.showAndWait();
+    }
 
     /**
      * Utility function that is used to switch between pages
@@ -122,13 +136,40 @@ public class CustomerController implements Initializable{
      * 
      */
     public Boolean validate(){
-        return true;
+        errorMessage = "";
+        Boolean valid = true;
+
+        if (fieldName.getText() == ""){valid = false;}
+        if (fieldAddress.getText() == ""){valid = false;}
+        if (fieldPostalCode.getText() == ""){valid = false;}
+        if (fieldPhone.getText() == ""){valid = false;}
+        if (comboCountry.getValue() == null){valid = false;}
+        if (comboDivision.getValue() == null){valid = false;}
+
+
+        if(!valid){
+            errorMessage = "All Fields must not be empty.";
+        }
+
+
+        if(!valid){
+            displayError("Error", "An Error has occured", errorMessage);
+            labelError.setText(errorMessage);
+        }
+
+        return valid;
     }
 
     /**
      * 
      */
     public void handleSave(){
+        Boolean valid = validate();
+
+        if(valid){
+
+        }
+
 
     }
 
