@@ -65,24 +65,28 @@ public class LoginController implements Initializable{
 
     static private String language;
     static private User user;
-
     static ResourceBundle rb;
 
 
 
     /**
-     * @return 
+     * @return [String] language of the system
      */
     public static String getLanguage() {
         return language;
     }
 
     /**
-     * @return 
+     * @return [User] user that has loggged in
      */
     public static User getUser() {
         return user;
     }
+
+    /**
+     * @return [ResourceBundle] rb for the labels
+     */
+    public static ResourceBundle getRb(){return rb;}
 
 
 
@@ -101,14 +105,12 @@ public class LoginController implements Initializable{
     }
     /**
      * Utility function that is used to display errors
-     * @param title String value text of the title
-     * @param header String value text of the header
      * @param text String value text of the main text
      */
-    public void displayError(String title, String header, String text)  {
+    public void displayError( String text)  {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
+        alert.setTitle(rb.getString("ERROR"));
+        alert.setHeaderText(rb.getString("ERRORHEADER"));
         alert.setContentText(text);
         alert.showAndWait();
     }
@@ -138,14 +140,14 @@ public class LoginController implements Initializable{
             String username = fieldUsername.getText();
             String password = fieldPassword.getText();
             validLogin = !(Objects.equals(username, "") || Objects.equals(password, ""));
-            if (!validLogin){errorMessage = "The username and password fields can not be empty";}
+            if (!validLogin){errorMessage = rb.getString("ERROREMPTY");}
             else{
                 User userLogin = UserDataAccessObject.getUserByUsername(username);
                 validLogin = !(userLogin == null);
-                if(!validLogin){ errorMessage = "Could not find a user with the provided username"; }
+                if(!validLogin){ errorMessage = rb.getString("LOGINERRORUSERNAME"); }
                 else{
                     validLogin = (Objects.equals(userLogin.getPassword(), password));
-                    if(!validLogin){ errorMessage = "Passwords do not match"; }
+                    if(!validLogin){ errorMessage = rb.getString("LOGINERRORPASSWORD"); }
                     else{
                         user = userLogin;
                         logAuthentication(true, username);
@@ -156,9 +158,9 @@ public class LoginController implements Initializable{
             }
 
             labelError.setText(errorMessage);
-            if(!validLogin){logAuthentication(false, username);displayError("Error", "Log in Error",errorMessage );}
+            if(!validLogin){logAuthentication(false, username);displayError(errorMessage );}
         }catch(Exception error){
-            displayError("Login Error", "Error Logging In","An error has occurred" );
+            displayError(rb.getString("ERRORGENERIC") );
         }
     }
 
@@ -167,10 +169,21 @@ public class LoginController implements Initializable{
      * Function that correctly maps all the labels to the correct language
      */
     public void mapLabels(){
+        String _username = rb.getString("LOGINUSERNAME");
+        String _password = rb.getString("LOGINPASSWORD");
+        String _timezone = rb.getString("LOGINTIMEZONE");
+        String _language = rb.getString("LOGINLANGUAGE");
+        String _login = rb.getString("LOGINLOGIN");
+
+        labelUsername.setText(_username);
+        labelPassword.setText(_password);
+        labelTimezone.setText(_timezone);
+        labelLanguage.setText(_language);
+        buttonLogin.setText(_login);
 
     }
     /**
-     * 
+     * Maps the language from the system
      */
     public void mapLanguage(){
 
@@ -179,9 +192,10 @@ public class LoginController implements Initializable{
         if(userLang == "fr" ){
             language = "fr";
         }
-        ResourceBundle rb = ResourceBundle.getBundle("bundle/resource");
+        ResourceBundle _rb = ResourceBundle.getBundle("bundle/resource");
         System.out.println("Lang = "+ language + "----" + userLang);
-        System.out.println(rb.getString("TEST"));
+        rb = _rb;
+
     }
 
 
@@ -194,6 +208,7 @@ public class LoginController implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle){
         language = null;
         user = null;
+        rb = null;
         mapLanguage();
         mapLabels();
 
