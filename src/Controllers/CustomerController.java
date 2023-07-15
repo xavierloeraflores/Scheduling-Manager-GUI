@@ -177,6 +177,7 @@ public class CustomerController implements Initializable{
      * @param text String value text of the main text
      */
     public void displayError( String text)  {
+        ResourceBundle rb =  LoginController.getRb();
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(rb.getString("ERROR"));
         alert.setHeaderText(rb.getString("ERRORHEADER"));

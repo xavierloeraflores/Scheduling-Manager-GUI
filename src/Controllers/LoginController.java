@@ -129,7 +129,7 @@ public class LoginController implements Initializable{
                     else{
                         user = userLogin;
                         logAuthentication(true, username);
-                        //openPage(actionEvent, "Main.fxml");
+                        openPage(actionEvent, "Main.fxml");
                     }
 
                 }
