@@ -12,8 +12,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * 
- * @author xavier
+ * Class representing all the methods to query the user table
+ * @author xavierloeraflores
  */
 public class UserDataAccessObject {
 
