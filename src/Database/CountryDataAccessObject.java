@@ -44,9 +44,9 @@ public class CountryDataAccessObject {
      * @return [ObservableList] of Country objects
      */
 
-    public static ObserableList<Country> getAllCountries() throws SQLException {
+    public static ObservableList<Country> getAllCountries() throws SQLException {
         String sql = "SELECT * FROM countries";
-        ObserableList<Country> countries = FXCollections.observableArrayList();
+        ObservableList<Country> countries = FXCollections.observableArrayList();
         ResultSet result = DAO.query(sql);
         while(result.next()){
             int _countryId = result.getInt("Country_ID");
