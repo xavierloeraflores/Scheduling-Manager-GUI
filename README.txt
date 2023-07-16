@@ -9,16 +9,10 @@ July 13 2023
 
 
 
-IntelliJ Community
-Java SE 17.01
-JavaFx-SDK-
-mysql-connector-java-
-
-
-•  IDE including version number (e.g., IntelliJ Community 2020.01), 
-full JDK of version used (e.g., Java SE 17.0.1), and 
-JavaFX version compatible with JDK version (e.g. JavaFX-SDK-17.0.1)
-•  the MySQL Connector driver version number, including the update number (e.g., mysql-connector-java-8.1.23)
+IntelliJ Community 2021.1.3 x64
+Java SE 17.0.1
+JavaFx-SDK-17.0.1
+mysql-connector-java-8.0.26
 
 
 Running The Program on Intellij Community Edition IDE:
