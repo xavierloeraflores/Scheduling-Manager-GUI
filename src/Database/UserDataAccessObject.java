@@ -1,5 +1,6 @@
 package Database;
 import Models.User;
+import Models.User;
 import main.JDBC;
 
 
@@ -68,6 +69,32 @@ public class UserDataAccessObject {
             return userResult;
         }
         return null;
+    }
+
+
+    /**
+     * @return [ObservableList] of User objects
+     */
+
+    public static ObservableList<User> getAllUsers() throws SQLException {
+        String sql = "SELECT * FROM countries";
+        ObservableList<User> users = FXCollections.observableArrayList();
+        ResultSet result = DAO.query(sql);
+        while(result.next()){
+            int _userId = result.getInt("User_ID");
+            String username = result.getString("Username");
+            String password = result.getString("Password");
+            Timestamp createDateTimestamp = result.getTimestamp("Create_Date");
+            LocalDateTime createDateTime = createDateTimestamp.toLocalDateTime();
+            String createdBy = result.getString("Created_By");
+            Timestamp lastUpdateTimestamp = result.getTimestamp("Last_Update");
+            LocalDateTime lastUpdateTime=lastUpdateTimestamp.toLocalDateTime();
+            String lastUpdatedBy = result.getString("Last_Updated_By");
+
+            User userResult = new User(_userId, username, password, createDateTime, createdBy, lastUpdateTime, lastUpdatedBy);
+            users.add(userResult);
+        }
+        return users;
     }
 
 }
