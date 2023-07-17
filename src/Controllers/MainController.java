@@ -23,6 +23,8 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * Controller class for the Main.fmxl form.
@@ -122,16 +124,16 @@ public class MainController implements Initializable{
             int _userId = user.getUserId();
             ObservableList<Appointment> userAppointments = FXCollections.observableArrayList();
             userAppointments = AppointmentDataAccessObject.getAppointmentByUserID(_userId);
-            Boolean alert = false;
+            Boolean showAlert = false;
             for(int i = 0; i<userAppointments.size();i++){
                 Appointment curAppointment = userAppointments.get(i);
                 LocalDateTime appointmentTime = curAppointment.getStart();
                 LocalDateTime alertTime = LocalDateTime.now().plusMinutes(15);
-                if(appointmentTime.isBefore(alertTime) && appointmentTime.isAfter(LocalDateTime.now())){alert = true;}
+                if(appointmentTime.isBefore(alertTime) && appointmentTime.isAfter(LocalDateTime.now())){showAlert = true;}
             }
-            if(alert){
+            if(showAlert){
                 ResourceBundle rb =  LoginController.getRb();
-                Alert alert = new Alert(Alert.INFORMATION);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle(rb.getString("MAINAPPOINTMENTALERTTITLE"));
                 alert.setHeaderText(rb.getString("MAINAPPOINTMENTALERTHEADER"));
                 alert.setContentText(rb.getString("MAINAPPOINTMENTALERTTEXT"));
