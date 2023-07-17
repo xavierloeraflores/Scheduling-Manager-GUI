@@ -193,7 +193,7 @@ public class CustomerDataAccessObject {
             String Phone = "Phone='" + _customer.getPhone() + "', ";
 
             LocalDateTime LastUpdateTime = _customer.getLastUpdate();;
-            String LastUpdate = "Last_Update=='" + LastUpdateTime.format(formatter).toString() + "', ";
+            String LastUpdate = "Last_Update='" + LastUpdateTime.format(formatter).toString() + "', ";
             String LastUpdatedBy = "Last_Updated_By='" + _customer.getLastUpdatedBy() + "', ";
             String DivisionID = "Division_ID=" + _customer.getDivisionId();
 
