@@ -77,7 +77,7 @@ public class UserDataAccessObject {
      */
 
     public static ObservableList<User> getAllUsers() throws SQLException {
-        String sql = "SELECT * FROM countries";
+        String sql = "SELECT * FROM users";
         ObservableList<User> users = FXCollections.observableArrayList();
         ResultSet result = DAO.query(sql);
         while(result.next()){
