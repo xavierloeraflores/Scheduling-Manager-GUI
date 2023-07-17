@@ -1,7 +1,9 @@
 package Controllers;
 
+import Database.AppointmentDataAccessObject;
 import Database.UserDataAccessObject;
 import Models.Appointment;
+import Models.Country;
 import Models.Customer;
 import Models.User;
 import javafx.event.ActionEvent;
@@ -17,6 +19,7 @@ import main.Logger;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -114,7 +117,31 @@ public class MainController implements Initializable{
      * Function that checks and alerts the user if they are within 15 minutes of an appointment
      */
     public void appointmentAlert(){
-        User user = LoginController.getUser();
+        try{
+            User user = LoginController.getUser();
+            int _userId = user.getUserId();
+            ObservableList<Appointment> userAppointments = FXCollections.observableArrayList();
+            userAppointments = AppointmentDataAccessObject.getAppointmentByUserID(_userId);
+            Boolean alert = false;
+            for(int i = 0; i<userAppointments.size();i++){
+                Appointment curAppointment = userAppointments.get(i);
+                LocalDateTime appointmentTime = curAppointment.getStart();
+                LocalDateTime alertTime = LocalDateTime.now().plusMinutes(15);
+                if(appointmentTime.isBefore(alertTime) && appointmentTime.isAfter(LocalDateTime.now())){alert = true;}
+            }
+            if(alert){
+                ResourceBundle rb =  LoginController.getRb();
+                Alert alert = new Alert(Alert.INFORMATION);
+                alert.setTitle(rb.getString("MAINAPPOINTMENTALERTTITLE"));
+                alert.setHeaderText(rb.getString("MAINAPPOINTMENTALERTHEADER"));
+                alert.setContentText(rb.getString("MAINAPPOINTMENTALERTTEXT"));
+                alert.showAndWait();
+            }
+
+        }catch(Exception err){
+            System.out.println(err);
+        }
+
     }
 
 
