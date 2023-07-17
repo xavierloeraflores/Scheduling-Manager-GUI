@@ -292,7 +292,10 @@ public class AppointmentDataAccessObject {
             System.out.println(error);
         }
     }
-
+    /**
+     * This function adds an appointment record
+     * @param _appointment the Appointment object
+     */
     public static void addAppointment(Appointment _appointment) {
         try{
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -320,6 +323,41 @@ public class AppointmentDataAccessObject {
             String sqlValues = "VALUES("+Title+Description+Location+Type+Start+End+CreateDate+CreatedBy+LastUpdate+LastUpdatedBy+CustomerID+UserID+ContactID;
 
             String sql = sqlInsert + sqlValues;
+            DAO.query(sql);
+        } catch(Exception error){
+            System.out.println(error);
+        }
+    }
+
+    /**
+     * This function update an appointment record
+     * @param _appointment the Appointment object
+     */
+    public static void updateAppointment(Appointment _appointment) {
+        try{
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String sqlUpdate = "Update appointments ";
+
+            String Title = "Title='" + _appointment.getTitle() + "', ";
+            String Description = "Description='" + _appointment.getDescription() + "', ";
+            String Location = "Location='" + _appointment + "', ";
+            String Type = "Type='" + _appointment + "', ";
+            LocalDateTime StartTime= _appointment.getStart();
+            LocalDateTime EndTime = _appointment.getEnd();
+            LocalDateTime LastUpdateTime = _appointment.getLastUpdate();
+            String Start = "Start='" + StartTime.format(formatter).toString() + "', ";
+            String End = "End='" + EndTime.format(formatter).toString() + "', ";
+            String LastUpdate = "Last_Update='" + LastUpdateTime.format(formatter).toString() + "', ";
+            String LastUpdatedBy = "Last_Updated_By='" + _appointment.getLastUpdatedBy() + "', ";
+            String CustomerID = "Customer_ID=" + _appointment.getCustomerId()+", ";
+            String UserID = "User_ID=" + _appointment.getUserId()+", ";
+            String ContactID = "Contact_ID=" + _appointment.getContactId();
+
+
+            String sqlSet = "VALUES("+Title+Description+Location+Type+Start+End+LastUpdate+LastUpdatedBy+CustomerID+UserID+ContactID;
+            String sqlWhere = " WHERE Appointment_ID = "+ _appointment.getAppointmentId();
+
+            String sql = sqlUpdate + sqlSet + sqlWhere;
             DAO.query(sql);
         } catch(Exception error){
             System.out.println(error);
