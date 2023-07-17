@@ -303,8 +303,8 @@ public class AppointmentDataAccessObject {
             String sqlInsert = "INSERT INTO appointments(Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID) ";
             String Title = "'" + _appointment.getTitle() + "', ";
             String Description = "'" + _appointment.getDescription() + "', ";
-            String Location = "'" + _appointment + "', ";
-            String Type = "'" + _appointment + "', ";
+            String Location = "'" + _appointment.getLocation() + "', ";
+            String Type = "'" + _appointment.getType() + "', ";
             LocalDateTime StartTime= _appointment.getStart();
             LocalDateTime EndTime = _appointment.getEnd();
             LocalDateTime CreateDateTime = _appointment.getCreateDate();
@@ -315,9 +315,9 @@ public class AppointmentDataAccessObject {
             String CreatedBy = "'" + _appointment.getCreatedBy() + "', ";
             String LastUpdate = "'" + LastUpdateTime.format(formatter).toString() + "', ";
             String LastUpdatedBy = "'" + _appointment.getLastUpdatedBy() + "', ";
-            String CustomerID = + _appointment.getCustomerId()+", ";
-            String UserID = + _appointment.getUserId()+", ";
-            String ContactID = + _appointment.getContactId()+")";
+            String CustomerID =  _appointment.getCustomerId()+", ";
+            String UserID =  _appointment.getUserId()+", ";
+            String ContactID =  _appointment.getContactId()+")";
 
 
             String sqlValues = "VALUES("+Title+Description+Location+Type+Start+End+CreateDate+CreatedBy+LastUpdate+LastUpdatedBy+CustomerID+UserID+ContactID;
@@ -336,12 +336,12 @@ public class AppointmentDataAccessObject {
     public static void updateAppointment(Appointment _appointment) {
         try{
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            String sqlUpdate = "Update appointments ";
+            String sqlUpdate = "UPDATE appointments ";
 
             String Title = "Title='" + _appointment.getTitle() + "', ";
             String Description = "Description='" + _appointment.getDescription() + "', ";
-            String Location = "Location='" + _appointment + "', ";
-            String Type = "Type='" + _appointment + "', ";
+            String Location = "Location='" + _appointment.getLocation() + "', ";
+            String Type = "Type='" + _appointment.getType() + "', ";
             LocalDateTime StartTime= _appointment.getStart();
             LocalDateTime EndTime = _appointment.getEnd();
             LocalDateTime LastUpdateTime = _appointment.getLastUpdate();
@@ -354,7 +354,7 @@ public class AppointmentDataAccessObject {
             String ContactID = "Contact_ID=" + _appointment.getContactId();
 
 
-            String sqlSet = "VALUES("+Title+Description+Location+Type+Start+End+LastUpdate+LastUpdatedBy+CustomerID+UserID+ContactID;
+            String sqlSet = "SET "+Title+Description+Location+Type+Start+End+LastUpdate+LastUpdatedBy+CustomerID+UserID+ContactID;
             String sqlWhere = " WHERE Appointment_ID = "+ _appointment.getAppointmentId();
 
             String sql = sqlUpdate + sqlSet + sqlWhere;
