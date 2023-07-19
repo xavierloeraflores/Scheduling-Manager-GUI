@@ -170,7 +170,7 @@ public class MainController implements Initializable{
         String _add = rb.getString("MAINADD");
         String _update = rb.getString("MAINUPDATE");
         String _delete = rb.getString("MAINDELETE");
-        String _monthly = rb.getString("MAINMONTLY");
+        String _monthly = rb.getString("MAINMONTHLY");
         String _weekly = rb.getString("MAINWEEKLY");
 
         labelAppointments.setText(_appointment);
