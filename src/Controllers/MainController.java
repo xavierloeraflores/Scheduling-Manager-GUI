@@ -1,6 +1,7 @@
 package Controllers;
 
 import Database.AppointmentDataAccessObject;
+import Database.CustomerDataAccessObject;
 import Database.UserDataAccessObject;
 import Models.Appointment;
 import Models.Country;
@@ -14,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import main.Logger;
 
@@ -60,45 +62,47 @@ public class MainController implements Initializable{
     private RadioButton radioWeekly;
 
     @FXML
-    private TableView tableA;
+    private TableView<Appointment> tableA;
     @FXML
-    private TableColumn aColumnID;
+    private TableColumn<Appointment, Integer> aColumnID;
     @FXML
-    private TableColumn aColumnTitle;
+    private TableColumn<Appointment, String> aColumnTitle;
     @FXML
-    private TableColumn aColumnDescription;
+    private TableColumn<Appointment, String> aColumnDescription;
     @FXML
-    private TableColumn aColumnLocation;
+    private TableColumn<Appointment, String> aColumnLocation;
     @FXML
-    private TableColumn aColumnType;
+    private TableColumn<Appointment, LocalDateTime> aColumnType;
     @FXML
-    private TableColumn aColumnStart;
+    private TableColumn<Appointment, LocalDateTime> aColumnStart;
     @FXML
-    private TableColumn aColumnEnd;
+    private TableColumn<Appointment, LocalDateTime> aColumnEnd;
     @FXML
-    private TableColumn aColumnCustomer;
+    private TableColumn<Appointment, Integer> aColumnCustomer;
     @FXML
-    private TableColumn aColumnUser;
+    private TableColumn<Appointment, Integer> aColumnUser;
     @FXML
-    private TableColumn aColumnContact;
+    private TableColumn<Appointment, Integer> aColumnContact;
 
     @FXML
-    private TableView tableC;
+    private TableView<Customer> tableC;
     @FXML
-    private TableColumn cColumnID;
+    private TableColumn<Customer, Integer> cColumnID;
     @FXML
-    private TableColumn cColumnName;
+    private TableColumn<Customer, String> cColumnName;
     @FXML
-    private TableColumn cColumnAddress;
+    private TableColumn<Customer, String> cColumnAddress;
     @FXML
-    private TableColumn cColumnPostalCode;
+    private TableColumn<Customer, String> cColumnPostalCode;
     @FXML
-    private TableColumn cColumnPhone;
+    private TableColumn<Customer, String> cColumnPhone;
     @FXML
-    private TableColumn cColumnDivision;
+    private TableColumn<Customer, Integer> cColumnDivision;
 
     static private Appointment appointment;
     static private Customer customer;
+    static private ObservableList<Appointment> appointments = FXCollections.observableArrayList();;
+    static private ObservableList<Customer> customers = FXCollections.observableArrayList();;
 
 
     /**
@@ -111,8 +115,15 @@ public class MainController implements Initializable{
      */
     public static Appointment getAppointment(){return appointment;}
 
+    /**
+     * @return [ObservableList<Customer>] list from the table
+     */
+    public static  ObservableList<Customer> getAllCustomers(){return customers;}
 
-
+    /**
+     * @return [ObservableList<Appointment>] list from the table
+     */
+    public static ObservableList<Appointment> getAllAppointments(){return appointments;}
 
 
     /**
@@ -159,6 +170,51 @@ public class MainController implements Initializable{
     }
 
     /**
+     * Function that correctly maps all the tables with te correct ObservableLists
+     */
+    public void mapTables(){
+        aColumnID.setCellValueFactory(new PropertyValueFactory("appointmentId"));
+        aColumnTitle.setCellValueFactory(new PropertyValueFactory("title"));
+        aColumnDescription.setCellValueFactory(new PropertyValueFactory("description"));
+        aColumnLocation.setCellValueFactory(new PropertyValueFactory("location"));
+        aColumnType.setCellValueFactory(new PropertyValueFactory("type"));
+        aColumnStart.setCellValueFactory(new PropertyValueFactory("start"));
+        aColumnEnd.setCellValueFactory(new PropertyValueFactory("end"));
+        aColumnCustomer.setCellValueFactory(new PropertyValueFactory("customerId"));
+        aColumnUser.setCellValueFactory(new PropertyValueFactory("userId"));
+        aColumnContact.setCellValueFactory(new PropertyValueFactory("contactId"));
+
+
+        cColumnID.setCellValueFactory(new PropertyValueFactory("customerId"));
+        cColumnName.setCellValueFactory(new PropertyValueFactory("customerName"));
+        cColumnAddress.setCellValueFactory(new PropertyValueFactory("address"));
+        cColumnPostalCode.setCellValueFactory(new PropertyValueFactory("postalCode"));
+        cColumnPhone.setCellValueFactory(new PropertyValueFactory("phone"));
+        cColumnDivision.setCellValueFactory(new PropertyValueFactory("divisionId"));
+
+
+        tableA.setItems(getAllAppointments());
+        tableC.setItems(getAllCustomers());
+
+
+    }
+
+    /**
+     * Function that correctly fetch the appointments and customers ObservableLists
+     */
+    public void fetchData(){
+        try {
+            appointments = AppointmentDataAccessObject.getAllAppointments();
+            customers = CustomerDataAccessObject.getAllCustomers();
+        }catch(Exception err){
+            System.out.println(err);
+        }
+
+
+
+    }
+
+    /**
      * Initializes the FXML Screen 
      * @param url parameter for the FXML Screen
      * @param resourceBundle parameter for the FXML Screen
@@ -167,8 +223,10 @@ public class MainController implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle){
         customer = null;
         appointment = null;
+        fetchData();
         appointmentAlert();
         mapLabels();
+        mapTables();
 
     }
 
