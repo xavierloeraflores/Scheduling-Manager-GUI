@@ -66,9 +66,9 @@
                   <Label fx:id="labelAppointments" layoutX="20.0" layoutY="6.0" text="Appointments" />
                   <RadioButton fx:id="radioWeekly" layoutX="884.0" layoutY="66.0" mnemonicParsing="false" text="Weekly" />
                   <RadioButton fx:id="radioMonthly" layoutX="882.0" layoutY="30.0" mnemonicParsing="false" text="Monthly" />
-                  <Button fx:id="buttonAddA" layoutX="896.0" layoutY="101.0" mnemonicParsing="false" text="Add" />
-                  <Button fx:id="buttonUpdateA" layoutX="887.0" layoutY="146.0" mnemonicParsing="false" text="Update" />
-                  <Button fx:id="buttonDeleteA" layoutX="889.0" layoutY="193.0" mnemonicParsing="false" text="Delete" />
+                  <Button fx:id="buttonAddA" onAction="#addAppointment" layoutX="896.0" layoutY="101.0" mnemonicParsing="false" text="Add" />
+                  <Button fx:id="buttonUpdateA" onAction="#updateAppointment" layoutX="887.0" layoutY="146.0" mnemonicParsing="false" text="Update" />
+                  <Button fx:id="buttonDeleteA" onAction="#deleteAppointment" layoutX="889.0" layoutY="193.0" mnemonicParsing="false" text="Delete" />
                </children>
             </Pane>
             <Pane layoutX="-2.0" layoutY="291.0" prefHeight="279.0" prefWidth="982.0">
@@ -84,9 +84,9 @@
                         <TableColumn fx:id="cColumnDivision" prefWidth="140.0" text="Division" />
                     </columns>
                   </TableView>
-                  <Button fx:id="buttonAddC" layoutX="898.0" layoutY="70.0" mnemonicParsing="false" text="Add" />
-                  <Button fx:id="buttonUpdateC" layoutX="889.0" layoutY="115.0" mnemonicParsing="false" text="Update" />
-                  <Button fx:id="buttonDeleteC" layoutX="891.0" layoutY="162.0" mnemonicParsing="false" text="Delete" />
+                  <Button fx:id="buttonAddC" onAction="#addCustomer" layoutX="898.0" layoutY="70.0" mnemonicParsing="false" text="Add" />
+                  <Button fx:id="buttonUpdateC" onAction="#updateCustomer" layoutX="889.0" layoutY="115.0" mnemonicParsing="false" text="Update" />
+                  <Button fx:id="buttonDeleteC" onAction="#deleteCustomer" layoutX="891.0" layoutY="162.0" mnemonicParsing="false" text="Delete" />
                </children>
             </Pane>
             <Label fx:id="labelError" layoutX="26.0" layoutY="570.0" prefHeight="88.0" prefWidth="600.0" textFill="RED" />

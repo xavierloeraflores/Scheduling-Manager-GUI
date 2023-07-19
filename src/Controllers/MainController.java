@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -24,6 +25,7 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -134,7 +136,7 @@ public class MainController implements Initializable{
     @FXML
     public void addCustomer(ActionEvent actionEvent) throws IOException {
         adding = true;
-        openPage(actionEvent, "Customer.fxml");
+        openPage(actionEvent, "/Views/Customer.fxml");
     }
 
     /**
@@ -149,7 +151,7 @@ public class MainController implements Initializable{
         if (selectedCustomer == null){
             displayError("");
         } else{
-            openPage(actionEvent, "Customer.fxml");
+            openPage(actionEvent, "/Views/Customer.fxml");
         }
     }
 
@@ -172,7 +174,7 @@ public class MainController implements Initializable{
                 int customerId = selectedCustomer.getCustomerId();
                 ObservableList<Appointment> customerAppointments = FXCollections.observableArrayList();
                 customerAppointments = AppointmentDataAccessObject.getAppointmentByCustomerID(customerId);
-                if (customerAppointments.getSize() > 0){
+                if (customerAppointments.size() > 0){
                     displayError("");
                     valid=false;
                 }
@@ -208,7 +210,7 @@ public class MainController implements Initializable{
     @FXML
     public void addAppointment(ActionEvent actionEvent) throws IOException {
         adding = true;
-        openPage(actionEvent, "Appointment.fxml");
+        openPage(actionEvent, "/Views/Appointment.fxml");
     }
 
     /**
@@ -223,7 +225,7 @@ public class MainController implements Initializable{
         if (selectedAppointment == null){
             displayError("");
         } else{
-            openPage(actionEvent, "Appointment.fxml");
+            openPage(actionEvent, "/Views/Appointment.fxml");
         }
     }
 
@@ -383,8 +385,8 @@ public class MainController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         adding = true;
-        customer = null;
-        appointment = null;
+        selectedCustomer = null;
+        selectedAppointment = null;
         fetchData();
         appointmentAlert();
         mapLabels();
