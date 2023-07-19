@@ -164,6 +164,31 @@ public class MainController implements Initializable{
      */
     public void mapLabels(){
         ResourceBundle rb =  LoginController.getRb();
+        String _appointment = rb.getString("MAINAPPOINTMENT");
+        String _customer = rb.getString("MAINCUSTOMER");
+        String _reports = rb.getString("MAINREPORTS");
+        String _add = rb.getString("MAINADD");
+        String _update = rb.getString("MAINUPDATE");
+        String _delete = rb.getString("MAINDELETE");
+        String _monthly = rb.getString("MAINMONTLY");
+        String _weekly = rb.getString("MAINWEEKLY");
+
+        labelAppointments.setText(_appointment);
+        labelCustomers.setText(_customer);
+        buttonAddA.setText(_add);
+        buttonAddC.setText(_add);
+        buttonDeleteA.setText(_delete);
+        buttonDeleteC.setText(_delete);
+        buttonUpdateA.setText(_update);
+        buttonUpdateC.setText(_update);
+        buttonReports.setText(_reports);
+        radioMonthly.setText(_monthly);
+        radioWeekly.setText(_weekly);
+
+
+
+
+
         //String _username = rb.getString("LOGINUSERNAME");
         //labelUsername.setText(_username);
 
