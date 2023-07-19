@@ -99,21 +99,21 @@ public class MainController implements Initializable{
     @FXML
     private TableColumn<Customer, Integer> cColumnDivision;
 
-    static private Appointment appointment;
-    static private Customer customer;
-    static private ObservableList<Appointment> appointments = FXCollections.observableArrayList();;
-    static private ObservableList<Customer> customers = FXCollections.observableArrayList();;
-
+    static private Appointment selectedAppointment;
+    static private Customer selectedCustomer;
+    static private ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+    static private ObservableList<Customer> customers = FXCollections.observableArrayList();
+    static private Boolean adding =  true;
 
     /**
      * @return [Customer] object that was selected from the table
      */
-    public static Customer getCustomer(){return customer;}
+    public static Customer getCustomer(){return selectedCustomer;}
 
     /**
      * @return [Appointment] object that was selected from the table
      */
-    public static Appointment getAppointment(){return appointment;}
+    public static Appointment getAppointment(){return selectedAppointment;}
 
     /**
      * @return [ObservableList<Customer>] list from the table
@@ -124,6 +124,142 @@ public class MainController implements Initializable{
      * @return [ObservableList<Appointment>] list from the table
      */
     public static ObservableList<Appointment> getAllAppointments(){return appointments;}
+
+
+    /**
+     * Sends the user to the Add Customer screen.
+     * @param actionEvent JavaFX action event
+     * @throws IOException
+     */
+    @FXML
+    public void addCustomer(ActionEvent actionEvent) throws IOException {
+        adding = true;
+        openPage(actionEvent, "Customer.fxml");
+    }
+
+    /**
+     * Sends the user to the Modify Customer screen.
+     * @param actionEvent JavaFX action event
+     * @throws IOException
+     */
+    @FXML
+    public void updateCustomer(ActionEvent actionEvent) throws IOException {
+        adding = false;
+        selectedCustomer = tableC.getSelectionModel().getSelectedItem();
+        if (selectedCustomer == null){
+            displayError("");
+        } else{
+            openPage(actionEvent, "Customer.fxml");
+        }
+    }
+
+    /**
+     * Sends the user to the Modify Customer screen.
+     * @param actionEvent JavaFX action event
+     * @throws IOException
+     */
+    @FXML
+    public void deleteCustomer(ActionEvent actionEvent) throws IOException {
+        try{
+            Boolean valid = true;
+            selectedCustomer = tableC.getSelectionModel().getSelectedItem();
+            if (selectedCustomer == null){
+                displayError("");
+                valid = false;
+            }
+
+            if(valid){
+                int customerId = selectedCustomer.getCustomerId();
+                ObservableList<Appointment> customerAppointments = FXCollections.observableArrayList();
+                customerAppointments = AppointmentDataAccessObject.getAppointmentByCustomerID(customerId);
+                if (customerAppointments.getSize() > 0){
+                    displayError("");
+                    valid=false;
+                }
+            }
+
+
+
+            if(valid){
+                Alert alert = new Alert((Alert.AlertType.CONFIRMATION));
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Delete Confirmation");
+                alert.setHeaderText("Confirm Delete");
+                alert.setContentText("Are you sure you want to delete the customer?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if(result.get() == ButtonType.OK) {
+                    int customerId = selectedCustomer.getCustomerId();
+                    CustomerDataAccessObject.deleteCustomerByCustomerID(customerId);
+                    fetchData();
+                    tableC.setItems(getAllCustomers());
+                }
+            }
+
+        }catch(Exception err){
+            System.out.println(err);
+        }
+    }
+
+    /**
+     * Sends the user to the Add Appointment screen.
+     * @param actionEvent JavaFX action event
+     * @throws IOException
+     */
+    @FXML
+    public void addAppointment(ActionEvent actionEvent) throws IOException {
+        adding = true;
+        openPage(actionEvent, "Appointment.fxml");
+    }
+
+    /**
+     * Sends the user to the Modify Appointment screen.
+     * @param actionEvent JavaFX action event
+     * @throws IOException
+     */
+    @FXML
+    public void updateAppointment(ActionEvent actionEvent) throws IOException {
+        adding = false;
+        selectedAppointment = tableA.getSelectionModel().getSelectedItem();
+        if (selectedAppointment == null){
+            displayError("");
+        } else{
+            openPage(actionEvent, "Appointment.fxml");
+        }
+    }
+
+    /**
+     * Sends the user to the Modify Appointment screen.
+     * @param actionEvent JavaFX action event
+     * @throws IOException
+     */
+    @FXML
+    public void deleteAppointment(ActionEvent actionEvent) throws IOException {
+        try{
+            Boolean valid = true;
+            selectedAppointment = tableA.getSelectionModel().getSelectedItem();
+            if (selectedAppointment == null){
+                displayError("");
+                valid = false;
+            }
+
+            if(valid){
+                Alert alert = new Alert((Alert.AlertType.CONFIRMATION));
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Delete Confirmation");
+                alert.setHeaderText("Confirm Delete");
+                alert.setContentText("Are you sure you want to delete the customer?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if(result.get() == ButtonType.OK) {
+                    int appointmentId = selectedAppointment.getAppointmentId();
+                    AppointmentDataAccessObject.deleteAppointmentByAppointmentID(appointmentId);
+                    fetchData();
+                    tableA.setItems(getAllAppointments());
+                }
+            }
+        }catch(Exception err){
+            System.out.println(err);
+        }
+    }
 
 
     /**
@@ -246,6 +382,7 @@ public class MainController implements Initializable{
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
+        adding = true;
         customer = null;
         appointment = null;
         fetchData();
