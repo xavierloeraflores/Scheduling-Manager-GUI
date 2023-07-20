@@ -76,6 +76,8 @@ public class CustomerController implements Initializable{
     @FXML 
     private ComboBox comboDivision;
 
+
+    static private ResourceBundle rb;
     private String language;
 
     private String errorMessage;
@@ -169,6 +171,32 @@ public class CustomerController implements Initializable{
      * 
      */
     public void mapLabels(){
+        ResourceBundle _rb =  LoginController.getRb();
+        rb = _rb;
+
+
+        String _userId =rb.getString("AUTOGEN");
+        String _id = rb.getString("ID");
+        String _name = rb.getString("CUSTOMERNAME");
+        String _address = rb.getString("CUSTOMERADDRESS");
+        String _postalCode = rb.getString("CUSTOMERPOSTALCODE");
+        String _phone = rb.getString("CUSTOMERPHONE");
+        String _country = rb.getString("CUSTOMERCOUNTRY");
+        String _division= rb.getString("CUSTOMERDIVISION");
+
+
+        labelUserId.setText(_userId);
+        labelId.setText(_id);
+        labelName.setText(_name);
+        labelAddress.setText(_address);
+        labelPostalCode.setText(_postalCode);
+        labelPhone.setText(_phone);
+        labelCountry.setText(_country);
+        labelDivision.setText(_division);
+
+
+
+
 
     }
 
@@ -177,7 +205,6 @@ public class CustomerController implements Initializable{
      * @param text String value text of the main text
      */
     public void displayError( String text)  {
-        ResourceBundle rb =  LoginController.getRb();
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(rb.getString("ERROR"));
         alert.setHeaderText(rb.getString("ERRORHEADER"));

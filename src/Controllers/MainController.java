@@ -109,6 +109,11 @@ public class MainController implements Initializable{
     static private Boolean adding =  true;
 
     /**
+     * @return [Boolean] value whether the action is adding or updating
+     */
+    public static Boolean getAdding(){return adding;}
+
+    /**
      * @return [Customer] object that was selected from the table
      */
     public static Customer getCustomer(){return selectedCustomer;}
