@@ -101,6 +101,7 @@ public class MainController implements Initializable{
     @FXML
     private TableColumn<Customer, Integer> cColumnDivision;
 
+    static private ResourceBundle rb;
     static private Appointment selectedAppointment;
     static private Customer selectedCustomer;
     static private ObservableList<Appointment> appointments = FXCollections.observableArrayList();
@@ -149,7 +150,7 @@ public class MainController implements Initializable{
         adding = false;
         selectedCustomer = tableC.getSelectionModel().getSelectedItem();
         if (selectedCustomer == null){
-            displayError("");
+            displayError(rb.getString("MAINERRORSELECTCUSTOMER"));
         } else{
             openPage(actionEvent, "/Views/Customer.fxml");
         }
@@ -166,7 +167,7 @@ public class MainController implements Initializable{
             Boolean valid = true;
             selectedCustomer = tableC.getSelectionModel().getSelectedItem();
             if (selectedCustomer == null){
-                displayError("");
+                displayError(rb.getString("MAINERRORSELECTCUSTOMER"));
                 valid = false;
             }
 
@@ -175,7 +176,7 @@ public class MainController implements Initializable{
                 ObservableList<Appointment> customerAppointments = FXCollections.observableArrayList();
                 customerAppointments = AppointmentDataAccessObject.getAppointmentByCustomerID(customerId);
                 if (customerAppointments.size() > 0){
-                    displayError("");
+                    displayError(rb.getString("MAINERRORDELETECUSTOMER"));
                     valid=false;
                 }
             }
@@ -185,9 +186,9 @@ public class MainController implements Initializable{
             if(valid){
                 Alert alert = new Alert((Alert.AlertType.CONFIRMATION));
                 alert.initModality(Modality.NONE);
-                alert.setTitle("Delete Confirmation");
-                alert.setHeaderText("Confirm Delete");
-                alert.setContentText("Are you sure you want to delete the customer?");
+                alert.setTitle(rb.getString("MAINDELETECONFIRMTITLE"));
+                alert.setHeaderText(rb.getString("MAINDELETECONFIRMHEADER"));
+                alert.setContentText(rb.getString("MAINDELETECUSTOMERCONFIRMTEXT"));
                 Optional<ButtonType> result = alert.showAndWait();
                 if(result.get() == ButtonType.OK) {
                     int customerId = selectedCustomer.getCustomerId();
@@ -223,7 +224,7 @@ public class MainController implements Initializable{
         adding = false;
         selectedAppointment = tableA.getSelectionModel().getSelectedItem();
         if (selectedAppointment == null){
-            displayError("");
+            displayError(rb.getString("MAINERRORSELECTAPPOINTMENT"));
         } else{
             openPage(actionEvent, "/Views/Appointment.fxml");
         }
@@ -240,16 +241,16 @@ public class MainController implements Initializable{
             Boolean valid = true;
             selectedAppointment = tableA.getSelectionModel().getSelectedItem();
             if (selectedAppointment == null){
-                displayError("");
+                displayError(rb.getString("MAINERRORSELECTAPPOINTMENT"));
                 valid = false;
             }
 
             if(valid){
                 Alert alert = new Alert((Alert.AlertType.CONFIRMATION));
                 alert.initModality(Modality.NONE);
-                alert.setTitle("Delete Confirmation");
-                alert.setHeaderText("Confirm Delete");
-                alert.setContentText("Are you sure you want to delete the customer?");
+                alert.setTitle(rb.getString("MAINDELETECONFIRMTITLE"));
+                alert.setHeaderText(rb.getString("MAINDELETECONFIRMHEADER"));
+                alert.setContentText(rb.getString("MAINDELETEAPPOINTMENTCONFIRMTEXT"));
                 Optional<ButtonType> result = alert.showAndWait();
                 if(result.get() == ButtonType.OK) {
                     int appointmentId = selectedAppointment.getAppointmentId();
@@ -281,7 +282,6 @@ public class MainController implements Initializable{
                 if(appointmentTime.isBefore(alertTime) && appointmentTime.isAfter(LocalDateTime.now())){showAlert = true;}
             }
             if(showAlert){
-                ResourceBundle rb =  LoginController.getRb();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle(rb.getString("MAINAPPOINTMENTALERTTITLE"));
                 alert.setHeaderText(rb.getString("MAINAPPOINTMENTALERTHEADER"));
@@ -301,7 +301,8 @@ public class MainController implements Initializable{
      * Function that correctly maps all the labels to the correct language
      */
     public void mapLabels(){
-        ResourceBundle rb =  LoginController.getRb();
+        ResourceBundle _rb =  LoginController.getRb();
+        rb=_rb;
         String _appointment = rb.getString("MAINAPPOINTMENT");
         String _customer = rb.getString("MAINCUSTOMER");
         String _reports = rb.getString("MAINREPORTS");
@@ -323,12 +324,6 @@ public class MainController implements Initializable{
         radioMonthly.setText(_monthly);
         radioWeekly.setText(_weekly);
 
-
-
-
-
-        //String _username = rb.getString("LOGINUSERNAME");
-        //labelUsername.setText(_username);
 
     }
 
@@ -414,7 +409,6 @@ public class MainController implements Initializable{
      * @param text String value text of the main text
      */
     public void displayError( String text)  {
-        ResourceBundle rb =  LoginController.getRb();
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(rb.getString("ERROR"));
         alert.setHeaderText(rb.getString("ERRORHEADER"));
