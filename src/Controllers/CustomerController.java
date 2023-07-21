@@ -79,9 +79,8 @@ public class CustomerController implements Initializable{
 
     static private ResourceBundle rb;
     private String language;
-
     private String errorMessage;
-
+    private Boolean adding = true;
 
 
 
@@ -97,14 +96,13 @@ public class CustomerController implements Initializable{
     private void handleCancel(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.initModality(Modality.NONE);
-        alert.setTitle("Cancel Appointment Confirmation");
-        alert.setHeaderText("Confirm Cancellation");
-        alert.setContentText("Are you sure you want to cancel this appointment?");
+        alert.setTitle(rb.getString("CANCELTITLE"));
+        alert.setHeaderText(rb.getString("CANCELHEADER"));
+        alert.setContentText(rb.getString("CANCELTEXT"));
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == ButtonType.OK) {
-            //Send to main screen
-            //mainScreen(actionEvent);
+            openPage(actionEvent,"/Views/Main.fxml");
         }
     }
 
@@ -152,9 +150,6 @@ public class CustomerController implements Initializable{
 
 
 
-
-
-
     /**
      * Initializes the FXML Screen 
      * @param url parameter for the FXML Screen
@@ -164,6 +159,7 @@ public class CustomerController implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle){
         language = null;
         mapLabels();
+        adding = MainController.getAdding();
 
     }
 
@@ -173,8 +169,8 @@ public class CustomerController implements Initializable{
     public void mapLabels(){
         ResourceBundle _rb =  LoginController.getRb();
         rb = _rb;
-
-
+        String _save = rb.getString("SAVE");
+        String _cancel = rb.getString("CANCEL");
         String _userId =rb.getString("AUTOGEN");
         String _id = rb.getString("ID");
         String _name = rb.getString("CUSTOMERNAME");
@@ -183,8 +179,12 @@ public class CustomerController implements Initializable{
         String _phone = rb.getString("CUSTOMERPHONE");
         String _country = rb.getString("CUSTOMERCOUNTRY");
         String _division= rb.getString("CUSTOMERDIVISION");
+        String _selectCountry = rb.getString("CUSTOMERSELCOUNTRY");
+        String _selectDivision = rb.getString("CUSTOMERSELDIVSION");
 
 
+        buttonSave.setText(_save);
+        buttonCancel.setText(_cancel);
         labelUserId.setText(_userId);
         labelId.setText(_id);
         labelName.setText(_name);
@@ -193,14 +193,12 @@ public class CustomerController implements Initializable{
         labelPhone.setText(_phone);
         labelCountry.setText(_country);
         labelDivision.setText(_division);
-
-
-
-
+        comboCountry.setPromptText(_selectCountry);
+        comboDivision.setPromptText(_selectDivision);
 
     }
 
-        /**
+    /**
      * Utility function that is used to display errors
      * @param text String value text of the main text
      */
