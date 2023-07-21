@@ -138,10 +138,12 @@ public class AppointmentController implements Initializable{
         String _customerId  = rb.getString("APPOINTMENTCUSTOMERID");
         String _userId  = rb.getString("APPOINTMENTUSERID");
         String _selContact = rb.getString("APPOINTMENTSELCONTACT");
+        String _autogen = rb.getString("AUTOGEN");
 
         buttonCancel.setText(_cancel);
         buttonSave.setText(_save);
         labelId.setText(_id);
+        labelAutoGenId.setText(_autogen);
         labelContact.setText(_contact);
         labelTitle.setText(_title);
         labelDescription.setText(_description);

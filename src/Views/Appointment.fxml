@@ -59,14 +59,14 @@
             <TextField fx:id="fieldLocation" layoutX="108.0" layoutY="136.0" />
             <DatePicker fx:id="dateStart" layoutX="109.0" layoutY="170.0" />
             <TextField fx:id="fieldStartHour" layoutX="121.0" layoutY="206.0" prefHeight="26.0" prefWidth="45.0" />
-            <TextField fx:id="fieldStateMin" layoutX="173.0" layoutY="206.0" prefHeight="26.0" prefWidth="45.0" />
+            <TextField fx:id="fieldStartMin" layoutX="173.0" layoutY="206.0" prefHeight="26.0" prefWidth="45.0" />
             <DatePicker fx:id="dateEnd" layoutX="105.0" layoutY="235.0" />
             <TextField fx:id="fieldEndHour" layoutX="109.0" layoutY="270.0" prefHeight="26.0" prefWidth="45.0" />
             <TextField fx:id="fieldEndMin" layoutX="160.0" layoutY="270.0" prefHeight="26.0" prefWidth="45.0" />
             <Label layoutX="167.0" layoutY="211.0" text=":" />
             <Label layoutX="155.0" layoutY="274.0" text=":" />
             <Label fx:id="labelAutoGenId" layoutX="109.0" layoutY="20.0" text="Auto Gen ID" />
-            <Label fx:id="lebelContact" layoutX="5.0" layoutY="46.0" text="Contact" />
+            <Label fx:id="labelContact" layoutX="5.0" layoutY="46.0" text="Contact" />
             <ComboBox fx:id="comboContact" layoutX="101.0" layoutY="43.0" prefWidth="150.0" />
             <Button fx:id="buttonSave" onAction="#handleSave" layoutX="445.0" layoutY="149.0" mnemonicParsing="false" text="Save" />
             <Button fx:id="buttonCancel" onAction="#handleCancel" layoutX="445.0" layoutY="197.0" mnemonicParsing="false" text="Cancel" />
