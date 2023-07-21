@@ -40,7 +40,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.CustomerController">
   <children>
     <MenuBar VBox.vgrow="NEVER" />
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
@@ -51,8 +51,8 @@
             <Label fx:id="labelPostalCode" layoutX="14.0" layoutY="139.0" text="Postal Code" />
             <Label fx:id="labelPhone" layoutX="14.0" layoutY="168.0" text="Phone Number" />
             <Label fx:id="labelCountry" layoutX="15.0" layoutY="200.0" text="Country" />
-            <Label fx:id="labelDivsion" layoutX="15.0" layoutY="228.0" text="Division" />
-            <Button fx:id="buttonSave" layoutX="438.0" layoutY="187.0" mnemonicParsing="false" text="Save" />
+            <Label fx:id="labelDivision" layoutX="15.0" layoutY="228.0" text="Division" />
+            <Button fx:id="buttonSave" onAction="#handleSave" layoutX="438.0" layoutY="187.0" mnemonicParsing="false" text="Save" />
             <Label fx:id="labelUserId" layoutX="167.0" layoutY="46.0" text="Auto Gen: ID" />
             <TextField fx:id="fieldName" layoutX="167.0" layoutY="71.0" />
             <TextField fx:id="fieldAddress" layoutX="167.0" layoutY="104.0" />
@@ -60,7 +60,7 @@
             <TextField fx:id="fieldPhone" layoutX="167.0" layoutY="164.0" />
             <ComboBox fx:id="comboCountry" layoutX="167.0" layoutY="196.0" prefWidth="150.0" promptText="Select Country" />
             <ComboBox fx:id="comboDivision" layoutX="167.0" layoutY="224.0" prefWidth="150.0" promptText="Select Division" />
-            <Button fx:id="buttonCancel" layoutX="438.0" layoutY="224.0" mnemonicParsing="false" text="Cancel" />
+            <Button fx:id="buttonCancel" onAction="#handleCancel" layoutX="438.0" layoutY="224.0" mnemonicParsing="false" text="Cancel" />
             <Label fx:id="labelError" layoutX="45.0" layoutY="262.0" textFill="RED" />
          </children>
     </AnchorPane>

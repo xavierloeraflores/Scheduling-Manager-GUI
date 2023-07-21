@@ -98,7 +98,7 @@ public class CustomerController implements Initializable{
         alert.initModality(Modality.NONE);
         alert.setTitle(rb.getString("CANCELTITLE"));
         alert.setHeaderText(rb.getString("CANCELHEADER"));
-        alert.setContentText(rb.getString("CANCELTEXT"));
+        alert.setContentText(rb.getString("CANCELCONFIRM"));
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == ButtonType.OK) {

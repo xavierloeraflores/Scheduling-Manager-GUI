@@ -111,12 +111,12 @@ public class MainController implements Initializable{
     /**
      * @return [Boolean] value whether the action is adding or updating
      */
-    public static Boolean getAdding(){return adding;}
+    static public Boolean getAdding(){return adding;}
 
     /**
      * @return [Customer] object that was selected from the table
      */
-    public static Customer getCustomer(){return selectedCustomer;}
+    static public Customer getCustomer(){return selectedCustomer;}
 
     /**
      * @return [Appointment] object that was selected from the table
@@ -126,12 +126,12 @@ public class MainController implements Initializable{
     /**
      * @return [ObservableList<Customer>] list from the table
      */
-    public static  ObservableList<Customer> getAllCustomers(){return customers;}
+    static public  ObservableList<Customer> getAllCustomers(){return customers;}
 
     /**
      * @return [ObservableList<Appointment>] list from the table
      */
-    public static ObservableList<Appointment> getAllAppointments(){return appointments;}
+    static public  ObservableList<Appointment> getAllAppointments(){return appointments;}
 
 
     /**
