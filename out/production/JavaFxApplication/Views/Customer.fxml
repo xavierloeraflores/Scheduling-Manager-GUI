@@ -52,7 +52,7 @@
             <Label fx:id="labelPhone" layoutX="14.0" layoutY="168.0" text="Phone Number" />
             <Label fx:id="labelCountry" layoutX="15.0" layoutY="200.0" text="Country" />
             <Label fx:id="labelDivision" layoutX="15.0" layoutY="228.0" text="Division" />
-            <Button fx:id="buttonSave" layoutX="438.0" layoutY="187.0" mnemonicParsing="false" text="Save" />
+            <Button fx:id="buttonSave" onAction="#handleSave" layoutX="438.0" layoutY="187.0" mnemonicParsing="false" text="Save" />
             <Label fx:id="labelUserId" layoutX="167.0" layoutY="46.0" text="Auto Gen: ID" />
             <TextField fx:id="fieldName" layoutX="167.0" layoutY="71.0" />
             <TextField fx:id="fieldAddress" layoutX="167.0" layoutY="104.0" />

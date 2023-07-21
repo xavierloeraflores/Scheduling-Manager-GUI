@@ -93,44 +93,13 @@ public class AppointmentController implements Initializable{
     private Button buttonCancel;
 
     private String language;
+    private ResourceBundle rb;
 
 
 
 
 
-    /**
-     * Utility function that is used to switch between pages
-     * @param actionEvent JavaFX action event
-     * @throws IOException
-     */
-    public void openPage(ActionEvent actionEvent, String form) throws  IOException {
-        Parent addPartFXML = FXMLLoader.load(getClass().getResource(form));
-        Scene addPartScene = new Scene(addPartFXML);
-        Stage addPartStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        addPartStage.setScene(addPartScene);
-        addPartStage.show();
-    }
 
-    /**
-     * Handles the canceling functionality when a user presses the cancel button.
-     * It will return the user the Main screen if the user confirms cancellation
-     * @param actionEvent JavaFX action event
-     * @throws IOException
-     */
-    @FXML
-    private void handleCancel(ActionEvent actionEvent) throws IOException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initModality(Modality.NONE);
-        alert.setTitle("Cancel Appointment Confirmation");
-        alert.setHeaderText("Confirm Cancellation");
-        alert.setContentText("Are you sure you want to cancel this appointment?");
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.get() == ButtonType.OK) {
-            //Send to main screen
-            //mainScreen(actionEvent);
-        }
-    }
 
 
     /**
@@ -152,6 +121,8 @@ public class AppointmentController implements Initializable{
      * 
      */
     public void mapLabels(){
+        ResourceBundle _rb = LoginController.getRb();
+        rb= _rb;
 
     }
 
@@ -168,4 +139,38 @@ public class AppointmentController implements Initializable{
         mapLabels();
 
     }
+    /**
+     * Handles the canceling functionality when a user presses the cancel button.
+     * It will return the user the Main screen if the user confirms cancellation
+     * @param actionEvent JavaFX action event
+     * @throws IOException
+     */
+    @FXML
+    private void handleCancel(ActionEvent actionEvent) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initModality(Modality.NONE);
+        alert.setTitle(rb.getString("CANCELTITLE"));
+        alert.setHeaderText(rb.getString("CANCELHEADER"));
+        alert.setContentText(rb.getString("CANCELCONFIRM"));
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+            openPage(actionEvent,"/Views/Main.fxml");
+        }
+    }
+
+    /**
+     * Utility function that is used to switch between pages
+     * @param actionEvent JavaFX action event
+     * @throws IOException
+     */
+    public void openPage(ActionEvent actionEvent, String form) throws  IOException {
+        Parent addPartFXML = FXMLLoader.load(getClass().getResource(form));
+        Scene addPartScene = new Scene(addPartFXML);
+        Stage addPartStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        addPartStage.setScene(addPartScene);
+        addPartStage.show();
+    }
+
+
 }

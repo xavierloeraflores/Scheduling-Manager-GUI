@@ -86,25 +86,7 @@ public class CustomerController implements Initializable{
 
 
 
-    /**
-     * Handles the canceling functionality when a user presses the cancel button.
-     * It will return the user the Main screen if the user confirms cancellation
-     * @param actionEvent JavaFX action event
-     * @throws IOException
-     */
-    @FXML
-    private void handleCancel(ActionEvent actionEvent) throws IOException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initModality(Modality.NONE);
-        alert.setTitle(rb.getString("CANCELTITLE"));
-        alert.setHeaderText(rb.getString("CANCELHEADER"));
-        alert.setContentText(rb.getString("CANCELCONFIRM"));
-        Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.get() == ButtonType.OK) {
-            openPage(actionEvent,"/Views/Main.fxml");
-        }
-    }
 
 
     /**
@@ -161,6 +143,25 @@ public class CustomerController implements Initializable{
         mapLabels();
         adding = MainController.getAdding();
 
+    }
+    /**
+     * Handles the canceling functionality when a user presses the cancel button.
+     * It will return the user the Main screen if the user confirms cancellation
+     * @param actionEvent JavaFX action event
+     * @throws IOException
+     */
+    @FXML
+    private void handleCancel(ActionEvent actionEvent) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initModality(Modality.NONE);
+        alert.setTitle(rb.getString("CANCELTITLE"));
+        alert.setHeaderText(rb.getString("CANCELHEADER"));
+        alert.setContentText(rb.getString("CANCELCONFIRM"));
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+            openPage(actionEvent,"/Views/Main.fxml");
+        }
     }
 
     /**
