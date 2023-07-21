@@ -124,6 +124,35 @@ public class AppointmentController implements Initializable{
         ResourceBundle _rb = LoginController.getRb();
         rb= _rb;
 
+        String _save  = rb.getString("SAVE");
+        String _cancel  = rb.getString("CANCEL");
+        String _id = rb.getString("ID");
+        String _contact  = rb.getString("APPOINTMENTCONTACT");
+        String _title  = rb.getString("APPOINTMENTTITLE");
+        String _description  = rb.getString("APPOINTMENTDESCRIPTION");
+        String _location  = rb.getString("APPOINTMENTLOCATION");
+        String _startDate  = rb.getString("APPOINTMENTSTARTDATE");
+        String _startTime  = rb.getString("APPOINTMENTSTARTTIME");
+        String _endDate  = rb.getString("APPOINTMENTENDDATE");
+        String _endTime  = rb.getString("APPOINTMENTENDTIME");
+        String _customerId  = rb.getString("APPOINTMENTCUSTOMERID");
+        String _userId  = rb.getString("APPOINTMENTUSERID");
+        String _selContact = rb.getString("APPOINTMENTSELCONTACT");
+
+        buttonCancel.setText(_cancel);
+        buttonSave.setText(_save);
+        labelId.setText(_id);
+        labelContact.setText(_contact);
+        labelTitle.setText(_title);
+        labelDescription.setText(_description);
+        labelLocation.setText(_location);
+        labelStartDate.setText(_startDate);
+        labelStartTime.setText(_startTime);
+        labelEndDate.setText(_endDate);
+        labelEndTime.setText(_endTime);
+        labelCustomerId.setText(_customerId);
+        labelUserId.setText(_userId);
+        comboContact.setPromptText(_selContact);
     }
 
 
