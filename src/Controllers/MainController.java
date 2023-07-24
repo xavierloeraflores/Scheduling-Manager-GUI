@@ -155,7 +155,7 @@ public class MainController implements Initializable{
         adding = false;
         selectedCustomer = tableC.getSelectionModel().getSelectedItem();
         if (selectedCustomer == null){
-            displayError(rb.getString("MAINERRORSELECTCUSTOMER"));
+            displayError(rb.getString("MAINERRORSELECTCUSTOMER"), (str)->labelError.setText(str));
         } else{
             openPage(actionEvent, "/Views/Customer.fxml");
         }
@@ -172,7 +172,7 @@ public class MainController implements Initializable{
             Boolean valid = true;
             selectedCustomer = tableC.getSelectionModel().getSelectedItem();
             if (selectedCustomer == null){
-                displayError(rb.getString("MAINERRORSELECTCUSTOMER"));
+                displayError(rb.getString("MAINERRORSELECTCUSTOMER"), (str)->labelError.setText(""));
                 valid = false;
             }
 
@@ -181,7 +181,7 @@ public class MainController implements Initializable{
                 ObservableList<Appointment> customerAppointments = FXCollections.observableArrayList();
                 customerAppointments = AppointmentDataAccessObject.getAppointmentByCustomerID(customerId);
                 if (customerAppointments.size() > 0){
-                    displayError(rb.getString("MAINERRORDELETECUSTOMER"));
+                    displayError(rb.getString("MAINERRORDELETECUSTOMER"), (str)->labelError.setText(str));
                     valid=false;
                 }
             }
@@ -229,7 +229,7 @@ public class MainController implements Initializable{
         adding = false;
         selectedAppointment = tableA.getSelectionModel().getSelectedItem();
         if (selectedAppointment == null){
-            displayError(rb.getString("MAINERRORSELECTAPPOINTMENT"));
+            displayError(rb.getString("MAINERRORSELECTAPPOINTMENT"), (str)->labelError.setText(""));
         } else{
             openPage(actionEvent, "/Views/Appointment.fxml");
         }
@@ -246,7 +246,7 @@ public class MainController implements Initializable{
             Boolean valid = true;
             selectedAppointment = tableA.getSelectionModel().getSelectedItem();
             if (selectedAppointment == null){
-                displayError(rb.getString("MAINERRORSELECTAPPOINTMENT"));
+                displayError(rb.getString("MAINERRORSELECTAPPOINTMENT"), (str)->labelError.setText(""));
                 valid = false;
             }
 
@@ -409,15 +409,20 @@ public class MainController implements Initializable{
         addPartStage.setScene(addPartScene);
         addPartStage.show();
     }
+
+    interface errorLabelFunc{
+        void run(String err);
+    }
     /**
      * Utility function that is used to display errors
      * @param text String value text of the main text
      */
-    public void displayError( String text)  {
+    public void displayError( String text, errorLabelFunc func)  {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(rb.getString("ERROR"));
         alert.setHeaderText(rb.getString("ERRORHEADER"));
         alert.setContentText(text);
         alert.showAndWait();
+        func.run(text);
     }
 }
