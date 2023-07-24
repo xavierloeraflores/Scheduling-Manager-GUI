@@ -151,7 +151,7 @@ public class User {
     }
 
     /**
-     * @return Stringified  details
+     * @return Stringified user details
      */
     @Override
     public String toString(){return username;}
