@@ -116,4 +116,12 @@ public class Country {
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
     }
+
+
+    /**
+     * @return Stringified country details
+     */
+    @Override
+    public String toString(){return country;}
+
 }

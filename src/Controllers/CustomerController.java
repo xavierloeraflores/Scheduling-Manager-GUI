@@ -1,5 +1,6 @@
 package Controllers;
 
+import Database.CountryDataAccessObject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -139,10 +140,14 @@ public class CustomerController implements Initializable{
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-        language = null;
-        mapLabels();
-        adding = MainController.getAdding();
-
+        try {
+            language = null;
+            mapLabels();
+            adding = MainController.getAdding();
+            comboCountry.setItems(CountryDataAccessObject.getAllCountries());
+        }catch(Exception err){
+            System.out.println(err);
+        }
     }
     /**
      * Handles the canceling functionality when a user presses the cancel button.
