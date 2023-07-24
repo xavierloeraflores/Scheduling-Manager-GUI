@@ -66,5 +66,10 @@ public class Contact {
         this.email = email;
     }
 
+    /**
+     * @return Stringified contact details
+     */
+    @Override
+    public String toString(){return contactName;}
 
 }

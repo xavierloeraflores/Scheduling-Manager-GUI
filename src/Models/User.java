@@ -150,4 +150,9 @@ public class User {
         this.lastUpdateBy = lastUpdateBy;
     }
 
+    /**
+     * @return Stringified  details
+     */
+    @Override
+    public String toString(){return username;}
 }

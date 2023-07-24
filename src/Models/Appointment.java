@@ -257,4 +257,9 @@ public class Appointment {
         this.contactId = contactId;
     }
 
+    /**
+     * @return Stringified appointment details
+     */
+    @Override
+    public String toString(){return title;}
 }

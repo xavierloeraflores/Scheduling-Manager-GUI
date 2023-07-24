@@ -137,4 +137,9 @@ public class FirstLevelDivision {
         this.countryID = countryID;
     }
 
+    /**
+     * @return Stringified division details
+     */
+    @Override
+    public String toString(){return division;}
 }

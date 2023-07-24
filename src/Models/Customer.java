@@ -202,4 +202,9 @@ public class Customer {
         this.divisionId = divisionId;
     }
 
+    /**
+     * @return Stringified customer details
+     */
+    @Override
+    public String toString(){return customerName;}
 }
