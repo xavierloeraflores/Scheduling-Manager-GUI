@@ -58,7 +58,7 @@
             <TextField fx:id="fieldAddress" layoutX="167.0" layoutY="104.0" />
             <TextField fx:id="fieldPostalCode" layoutX="167.0" layoutY="135.0" />
             <TextField fx:id="fieldPhone" layoutX="167.0" layoutY="164.0" />
-            <ComboBox fx:id="comboCountry" layoutX="167.0" layoutY="196.0" prefWidth="150.0" promptText="Select Country" />
+            <ComboBox fx:id="comboCountry" onAction="#handleCountrySelect" layoutX="167.0" layoutY="196.0" prefWidth="150.0" promptText="Select Country" />
             <ComboBox fx:id="comboDivision" layoutX="167.0" layoutY="224.0" prefWidth="150.0" promptText="Select Division" />
             <Button fx:id="buttonCancel" onAction="#handleCancel" layoutX="438.0" layoutY="224.0" mnemonicParsing="false" text="Cancel" />
             <Label fx:id="labelError" layoutX="45.0" layoutY="262.0" textFill="RED" />

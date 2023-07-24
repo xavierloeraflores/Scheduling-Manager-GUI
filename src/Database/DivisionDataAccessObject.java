@@ -72,9 +72,9 @@ public class DivisionDataAccessObject {
      * @param countryId the countryId int value
      * @return the FirstLevelDivision object
      */
-    public static FirstLevelDivision getDivisionByCountryID(int countryId) throws SQLException {
+    public static ObservableList<FirstLevelDivision> getDivisionsByCountryID(int countryId) throws SQLException {
         String sql = "SELECT * FROM first_level_divisions WHERE Country_ID = " + countryId;
-        FirstLevelDivision divisionResult;
+        ObservableList<FirstLevelDivision> divisions = FXCollections.observableArrayList();
         ResultSet result = DAO.query(sql);
         while(result.next()){
             int divisionId = result.getInt("Division_ID");
@@ -87,10 +87,10 @@ public class DivisionDataAccessObject {
             String lastUpdatedBy = result.getString("Last_Updated_By");
             int _countryId = result.getInt("Country_ID");
 
-            divisionResult = new FirstLevelDivision(divisionId, division, createDateTime, createdBy, lastUpdateTime, lastUpdatedBy, _countryId);
-            return divisionResult;
+            FirstLevelDivision divisionResult = new FirstLevelDivision(divisionId, division, createDateTime, createdBy, lastUpdateTime, lastUpdatedBy, _countryId);
+            divisions.add(divisionResult);
         }
-        return null;
+        return divisions;
     }
 
 

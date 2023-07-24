@@ -1,6 +1,9 @@
 package Controllers;
 
 import Database.CountryDataAccessObject;
+import Database.DivisionDataAccessObject;
+import Models.Country;
+import Models.FirstLevelDivision;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -73,9 +76,9 @@ public class CustomerController implements Initializable{
 
 
     @FXML 
-    private ComboBox comboCountry;
+    private ComboBox<Country> comboCountry;
     @FXML 
-    private ComboBox comboDivision;
+    private ComboBox<FirstLevelDivision> comboDivision;
 
 
     static private ResourceBundle rb;
@@ -127,10 +130,21 @@ public class CustomerController implements Initializable{
         if(valid){
 
         }
-
-
     }
 
+    /**
+     *
+     */
+    public void handleCountrySelect(ActionEvent actionEvent){
+        try{
+            Country _selectedCountry = comboCountry.getSelectionModel().getSelectedItem();
+            int selectedCountryId = _selectedCountry.getCountryId();
+            comboDivision.setItems(DivisionDataAccessObject.getDivisionsByCountryID(selectedCountryId));
+        }catch(Exception err){
+            System.out.println(err);
+        }
+
+    }
 
 
     /**
@@ -170,7 +184,7 @@ public class CustomerController implements Initializable{
     }
 
     /**
-     * 
+     * Maps the labels to the correct language
      */
     public void mapLabels(){
         ResourceBundle _rb =  LoginController.getRb();
