@@ -28,6 +28,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.TimeZone;
 
 
 
@@ -66,8 +67,15 @@ public class LoginController implements Initializable{
     static private String language;
     static private User user;
     static ResourceBundle rb;
+    static private TimeZone timeZone = TimeZone.getDefault();
 
 
+    /**
+     * @return [TimeZone] timezone of the system
+     */
+    public static TimeZone getTimezone() {
+        return timeZone;
+    }
 
     /**
      * @return [String] language of the system
@@ -152,12 +160,19 @@ public class LoginController implements Initializable{
         String _timezone = rb.getString("LOGINTIMEZONE");
         String _language = rb.getString("LOGINLANGUAGE");
         String _login = rb.getString("LOGINLOGIN");
+        String _userTimezone = timeZone.getID()+ " - " +timeZone.getDisplayName();
+
+
+
+        labelUserLanguage.setText("en - English");
+        if(getLanguage() == "fr"){labelUserLanguage.setText("fr - Français");}
 
         labelUsername.setText(_username);
         labelPassword.setText(_password);
         labelTimezone.setText(_timezone);
         labelLanguage.setText(_language);
         buttonLogin.setText(_login);
+        labelUserTimezone.setText(_userTimezone);
 
     }
     /**
