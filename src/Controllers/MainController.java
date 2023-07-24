@@ -397,7 +397,7 @@ public class MainController implements Initializable{
 
 
 
-        /**
+    /**
      * Utility function that is used to switch between pages
      * @param actionEvent JavaFX action event
      * @throws IOException
@@ -409,7 +409,9 @@ public class MainController implements Initializable{
         addPartStage.setScene(addPartScene);
         addPartStage.show();
     }
-
+    /**
+     * Interface for the running lambdas in teh displayError function
+     */
     interface errorLabelFunc{
         void run(String err);
     }

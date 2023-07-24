@@ -21,3 +21,10 @@ Set the path varaibles for the JavaFX Library
 Run the main method on the Main.java file
 
 •  a description of the additional report of your choice you ran in part A3f
+
+
+
+LAMDA Functions: 
+src/MainController.fxml
+Lines: 
+Interface & Function for setting up LAMDAs: interface errorLabelFunc & public void displayError( String text, errorLabelFunc func)
