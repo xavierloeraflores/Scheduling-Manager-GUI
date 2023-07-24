@@ -40,10 +40,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoginController">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="387.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoginController">
   <children>
     <MenuBar VBox.vgrow="NEVER" />
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="406.0" prefWidth="850.0" VBox.vgrow="ALWAYS">
       <children>
             <Label fx:id="labelUsername" layoutX="63.0" layoutY="70.0" text="Username" />
             <Label fx:id="labelPassword" layoutX="64.0" layoutY="103.0" text="Password" />
@@ -53,7 +53,7 @@
             <Label fx:id="labelUserTimezone" layoutX="233.0" layoutY="132.0" text="America/Los Angeles" />
             <PasswordField fx:id="fieldPassword" layoutX="233.0" layoutY="99.0" />
             <Label fx:id="labelUserLanguage" layoutX="233.0" layoutY="160.0" text="English" />
-            <Button fx:id="buttonLogin" onAction="#handleLogin" layoutX="227.0" layoutY="194.0" mnemonicParsing="false" text="Log In" />
+            <Button fx:id="buttonLogin" layoutX="227.0" layoutY="194.0" mnemonicParsing="false" onAction="#handleLogin" text="Log In" />
             <Label fx:id="labelError" layoutX="63.0" layoutY="246.0" textFill="RED" />
       </children>
     </AnchorPane>
