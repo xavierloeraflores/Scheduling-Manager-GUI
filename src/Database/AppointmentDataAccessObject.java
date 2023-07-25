@@ -323,7 +323,7 @@ public class AppointmentDataAccessObject {
             String sqlValues = "VALUES("+Title+Description+Location+Type+Start+End+CreateDate+CreatedBy+LastUpdate+LastUpdatedBy+CustomerID+UserID+ContactID;
 
             String sql = sqlInsert + sqlValues;
-            DAO.query(sql);
+            DAO.update(sql);
         } catch(Exception error){
             System.out.println(error);
         }
@@ -358,7 +358,7 @@ public class AppointmentDataAccessObject {
             String sqlWhere = " WHERE Appointment_ID = "+ _appointment.getAppointmentId();
 
             String sql = sqlUpdate + sqlSet + sqlWhere;
-            DAO.query(sql);
+            DAO.update(sql);
         } catch(Exception error){
             System.out.println(error);
         }

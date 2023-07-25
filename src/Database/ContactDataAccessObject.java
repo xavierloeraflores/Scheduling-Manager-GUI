@@ -130,7 +130,7 @@ public class ContactDataAccessObject {
 
             String sqlValues = "VALUES("+ContactName+Email;
             String sql = sqlInsert + sqlValues;
-            DAO.query(sql);
+            DAO.update(sql);
         } catch(Exception error){
             System.out.println(error);
         }
@@ -152,7 +152,7 @@ public class ContactDataAccessObject {
             String sqlWhere = " WHERE Contact_ID = "+ _contact.getContactId();
 
             String sql = sqlUpdate + sqlSet + sqlWhere;
-            DAO.query(sql);
+            DAO.update(sql);
         } catch(Exception error){
             System.out.println(error);
         }

@@ -204,7 +204,7 @@ public class CustomerDataAccessObject {
             String sqlWhere = " WHERE Customer_ID = "+ _customer.getCustomerId();
 
             String sql = sqlUpdate + sqlSet + sqlWhere;
-            DAO.query(sql);
+            DAO.update(sql);
         } catch(Exception error){
             System.out.println(error);
         }
