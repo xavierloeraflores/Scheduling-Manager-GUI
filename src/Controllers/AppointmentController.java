@@ -1,5 +1,8 @@
 package Controllers;
 
+import Database.ContactDataAccessObject;
+import Models.Appointment;
+import Models.Contact;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -19,6 +22,10 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 
 import java.net.URL;
+import java.sql.Date;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import java.io.IOException;
 import java.util.Optional;
@@ -94,7 +101,8 @@ public class AppointmentController implements Initializable{
 
     private String language;
     private ResourceBundle rb;
-
+    private boolean adding = true;
+    private Appointment appointment;
 
 
 
@@ -116,9 +124,59 @@ public class AppointmentController implements Initializable{
 
     }
 
-
     /**
-     * 
+     * Maps the textFields with data
+     */
+    public void mapUpdating() {
+        try{
+            appointment = MainController.getAppointment();
+            int _userId = appointment.getUserId();
+            int _customerId = appointment.getCustomerId();
+            int _contactId = appointment.getContactId();
+            String _title = appointment.getTitle();
+            String _desc = appointment.getDescription();
+            String _location = appointment.getLocation();
+            LocalDateTime _start = appointment.getStart();
+            LocalDateTime _end = appointment.getEnd();
+
+
+            Contact _contact = ContactDataAccessObject.getContactByContactID(_contactId);
+            Instant _startInstant = _start.atZone(LoginController.getTimezone().toZoneId()).toInstant();
+            Instant _endInstant = _end.atZone(LoginController.getTimezone().toZoneId()).toInstant();
+
+            LocalDate _dateStart = LocalDate.of(_start.getYear(),_start.getMonth(), _start.getDayOfMonth());
+            LocalDate _dateEnd = LocalDate.of(_end.getYear(),_end.getMonth(), _end.getDayOfMonth());
+
+            fieldTitle.setText(_title);
+            fieldCustomerId.setText(""+_customerId);
+            fieldUserId.setText(""+_userId);
+            fieldDescription.setText(_desc);
+            fieldLocation.setText(_location);
+
+            fieldStartHour.setText(""+_start.getHour());
+            fieldStartMin.setText(""+ _start.getMinute());
+            fieldEndHour.setText(""+_end.getHour());
+            fieldEndMin.setText(""+_end.getMinute());
+
+
+            dateStart.setValue(_dateStart);
+            dateEnd.setValue(_dateEnd);
+
+
+
+
+            comboContact.setValue(_contact);
+
+
+
+
+
+        }catch(Exception err){
+            System.out.println(err);
+        }
+    }
+    /**
+     * Maps the labels to the correct language
      */
     public void mapLabels(){
         ResourceBundle _rb = LoginController.getRb();
@@ -139,6 +197,12 @@ public class AppointmentController implements Initializable{
         String _userId  = rb.getString("APPOINTMENTUSERID");
         String _selContact = rb.getString("APPOINTMENTSELCONTACT");
         String _autogen = rb.getString("AUTOGEN");
+
+        if(adding){
+            _autogen = _autogen + MainController.getAllAppointments().size();
+        }else{
+            _autogen = _autogen + MainController.getAppointment().getAppointmentId();
+        }
 
         buttonCancel.setText(_cancel);
         buttonSave.setText(_save);
@@ -166,8 +230,20 @@ public class AppointmentController implements Initializable{
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-        language = null;
-        mapLabels();
+        try{
+            language = null;
+            adding = MainController.getAdding();
+            mapLabels();
+            comboContact.setItems(ContactDataAccessObject.getAllContacts());
+            if (!adding){
+                mapUpdating();
+            }
+        }catch(Exception err){
+            System.out.println(err);
+        }
+
+
+
 
     }
     /**

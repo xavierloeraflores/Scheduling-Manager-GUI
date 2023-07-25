@@ -202,8 +202,8 @@ public class CustomerController implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle){
         try {
             language = null;
-            mapLabels();
             adding = MainController.getAdding();
+            mapLabels();
             comboCountry.setItems(CountryDataAccessObject.getAllCountries());
             if(!adding){
                 mapUpdating();
@@ -233,12 +233,10 @@ public class CustomerController implements Initializable{
     }
 
     /**
-     * Maps the labels to the correct language
+     * Maps the textFields with data
      */
     public void mapUpdating() {
         try {
-
-
             customer = MainController.getCustomer();
             fieldName.setText(customer.getCustomerName());
             fieldAddress.setText(customer.getAddress());
