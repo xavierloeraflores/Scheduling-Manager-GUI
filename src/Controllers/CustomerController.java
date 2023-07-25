@@ -1,6 +1,7 @@
 package Controllers;
 
 import Database.CountryDataAccessObject;
+import Database.CustomerDataAccessObject;
 import Database.DivisionDataAccessObject;
 import Models.Country;
 import Models.Customer;
@@ -24,6 +25,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import java.io.IOException;
 import java.util.Optional;
@@ -145,11 +147,34 @@ public class CustomerController implements Initializable{
     /**
      * 
      */
-    public void handleSave(){
+    public void handleSave(ActionEvent actionEvent) throws IOException {
         Boolean valid = validate();
+        if (valid){
+            String _name  = fieldName.getText();
+            String _address = fieldAddress.getText();
+            String _postal = fieldPostalCode.getText();
+            String _phone = fieldPhone.getText();
+            FirstLevelDivision _division = comboDivision.getValue();
+            int _divisionId = _division.getDivisionId();
+            String _updatedBy = LoginController.getUser().getUsername();
+            LocalDateTime _lastUpdate = LocalDateTime.now();
 
-        if(valid){
-
+            if(adding){
+                Customer _customer = new Customer(0, _name, _address, _postal, _phone,_lastUpdate, _updatedBy,_lastUpdate, _updatedBy, _divisionId );
+                CustomerDataAccessObject.addCustomer(_customer);
+                openPage(actionEvent, "/Views/Main.fxml");
+            }
+            if(!adding) {
+                customer.setCustomerName(_name);
+                customer.setAddress(_address);
+                customer.setPhone(_phone);
+                customer.setPostalCode(_postal);
+                customer.setDivisionId(_divisionId);
+                customer.setLastUpdatedBy(_updatedBy);
+                customer.setLastUpdate(_lastUpdate);
+                CustomerDataAccessObject.updateCustomer(customer);
+                openPage(actionEvent, "/Views/Main.fxml");
+            }
         }
     }
 

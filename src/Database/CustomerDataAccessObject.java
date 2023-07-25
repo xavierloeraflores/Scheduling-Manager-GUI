@@ -151,6 +151,7 @@ public class CustomerDataAccessObject {
      */
     public static void addCustomer(Customer _customer) {
         try{
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String sqlInsert = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Create_Date, Created_By, Last_Update, Last_Updated_By, Division_ID) ";
 
@@ -166,13 +167,14 @@ public class CustomerDataAccessObject {
             String CreatedBy = "'" + _customer.getCreatedBy() + "', ";
             String LastUpdate = "'" + LastUpdateTime.format(formatter).toString() + "', ";
             String LastUpdatedBy = "'" + _customer.getLastUpdatedBy() + "', ";
-            String DivisionID = _customer.getDivisionId()+")";
+            String DivisionID = _customer.getDivisionId()+");";
 
 
             String sqlValues = "VALUES("+CustomerName+Address+PostalCode+Phone+CreateDate+CreatedBy+LastUpdate+LastUpdatedBy+DivisionID;
 
             String sql = sqlInsert + sqlValues;
-            DAO.query(sql);
+            System.out.println("AddingCustomer:" + sql);
+            DAO.update(sql);
         } catch(Exception error){
             System.out.println(error);
         }

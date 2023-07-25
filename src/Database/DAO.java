@@ -21,9 +21,7 @@ public class DAO {
         ResultSet result =null;
         try{
             Statement SQLStatement= JDBC.getConnection().createStatement();
-            if(sql.toLowerCase().startsWith("select")){
                 result= SQLStatement.executeQuery(sql);
-            }
             return result;
         } catch(Exception error){
             System.out.println("Error: "+ error);
