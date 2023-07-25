@@ -3,6 +3,7 @@ package Controllers;
 import Database.CountryDataAccessObject;
 import Database.DivisionDataAccessObject;
 import Models.Country;
+import Models.Customer;
 import Models.FirstLevelDivision;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -86,6 +87,7 @@ public class CustomerController implements Initializable{
     private String language;
     private String errorMessage;
     private Boolean adding = true;
+    private Customer customer;
 
 
 
@@ -95,7 +97,7 @@ public class CustomerController implements Initializable{
 
 
     /**
-     * 
+     * Validates inputs for the Customer
      */
     public Boolean validate(){
         errorMessage = "";
@@ -178,6 +180,9 @@ public class CustomerController implements Initializable{
             mapLabels();
             adding = MainController.getAdding();
             comboCountry.setItems(CountryDataAccessObject.getAllCountries());
+            if(!adding){
+                mapUpdating();
+            }
         }catch(Exception err){
             System.out.println(err);
         }
@@ -205,6 +210,30 @@ public class CustomerController implements Initializable{
     /**
      * Maps the labels to the correct language
      */
+    public void mapUpdating() {
+        try {
+
+
+            customer = MainController.getCustomer();
+            fieldName.setText(customer.getCustomerName());
+            fieldAddress.setText(customer.getAddress());
+            fieldPhone.setText(customer.getPhone());
+            fieldPostalCode.setText(customer.getPostalCode());
+            int _divisionId = customer.getDivisionId();
+            FirstLevelDivision _division = DivisionDataAccessObject.getDivisionByDivisionID(_divisionId);
+            int _countryId = _division.getCountryId();
+            Country _country = CountryDataAccessObject.getCountryByCountryID(_countryId);
+            comboCountry.setValue(_country);
+            comboDivision.setValue(_division);
+
+        }catch(Exception err){
+            System.out.println(err);
+        }
+    }
+
+    /**
+     * Maps the labels to the correct language
+     */
     public void mapLabels(){
         ResourceBundle _rb =  LoginController.getRb();
         rb = _rb;
@@ -220,6 +249,11 @@ public class CustomerController implements Initializable{
         String _division= rb.getString("CUSTOMERDIVISION");
         String _selectCountry = rb.getString("CUSTOMERSELCOUNTRY");
         String _selectDivision = rb.getString("CUSTOMERSELDIVSION");
+        if(adding){
+            _userId = _userId + MainController.getAllCustomers().size();
+        }else{
+            _userId = _userId + MainController.getCustomer().getCustomerId();
+        }
 
 
         buttonSave.setText(_save);
