@@ -81,6 +81,7 @@ public class CustomerController implements Initializable{
     private ComboBox<FirstLevelDivision> comboDivision;
 
 
+
     static private ResourceBundle rb;
     private String language;
     private String errorMessage;
@@ -100,16 +101,34 @@ public class CustomerController implements Initializable{
         errorMessage = "";
         Boolean valid = true;
 
-        if (fieldName.getText() == ""){valid = false;}
-        if (fieldAddress.getText() == ""){valid = false;}
-        if (fieldPostalCode.getText() == ""){valid = false;}
-        if (fieldPhone.getText() == ""){valid = false;}
-        if (comboCountry.getValue() == null){valid = false;}
-        if (comboDivision.getValue() == null){valid = false;}
+        if (fieldName.getText() == ""){
+            valid = false;
+            errorMessage += rb.getString("CUSTOMERERRNAME") + "\n";
+        }
+        if (fieldAddress.getText() == "" || !fieldAddress.getText().contains(",")){
+            valid = false;
+            errorMessage += rb.getString("CUSTOMERERRADD") + "\n";
+        }
+        if (fieldPostalCode.getText() == ""){
+            valid = false;
+            errorMessage += rb.getString("CUSTOMERERRPOST") + "\n";
+        }
+        if (fieldPhone.getText() == ""){
+            valid = false;
+            errorMessage += rb.getString("CUSTOMERERRPHONE") + "\n";
+        }
+        if (comboCountry.getValue() == null){
+            valid = false;
+            errorMessage += rb.getString("CUSTOMERERRCOUNTRY") + "\n";
+        }
+        if (comboDivision.getValue() == null){
+            valid = false;
+            errorMessage += rb.getString("CUSTOMERERRDIV") + "\n";
+        }
 
 
         if(!valid){
-            errorMessage = "All Fields must not be empty.";
+            errorMessage += rb.getString("ERROREMPTY") + "\n";
         }
 
 
