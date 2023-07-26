@@ -292,6 +292,12 @@ public class MainController implements Initializable{
                 alert.setHeaderText(rb.getString("MAINAPPOINTMENTALERTHEADER"));
                 alert.setContentText(rb.getString("MAINAPPOINTMENTALERTTEXT"));
                 alert.showAndWait();
+            }else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle(rb.getString("MAINNOAPPOINTMENTALERTTITLE"));
+                alert.setHeaderText(rb.getString("MAINNOAPPOINTMENTALERTHEADER"));
+                alert.setContentText(rb.getString("MAINNOAPPOINTMENTALERTTEXT"));
+                alert.showAndWait();
             }
 
         }catch(Exception err){
@@ -388,9 +394,9 @@ public class MainController implements Initializable{
         selectedCustomer = null;
         selectedAppointment = null;
         fetchData();
-        appointmentAlert();
         mapLabels();
         mapTables();
+        appointmentAlert();
 
     }
 
