@@ -182,7 +182,7 @@ public class LoginController implements Initializable{
 
         language = "en";
         String userLang = System.getProperty("user.language");
-        if(userLang == "fr" ){
+        if(userLang.contains("fr" )){
             language = "fr";
         }
         ResourceBundle _rb = ResourceBundle.getBundle("bundle/resource");
