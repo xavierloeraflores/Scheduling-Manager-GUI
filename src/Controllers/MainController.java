@@ -22,6 +22,7 @@ import main.Logger;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -280,17 +281,27 @@ public class MainController implements Initializable{
             ObservableList<Appointment> userAppointments = FXCollections.observableArrayList();
             userAppointments = AppointmentDataAccessObject.getAppointmentByUserID(_userId);
             Boolean showAlert = false;
+            Appointment upcomingAppointment = null;
             for(int i = 0; i<userAppointments.size();i++){
                 Appointment curAppointment = userAppointments.get(i);
                 LocalDateTime appointmentTime = curAppointment.getStart();
                 LocalDateTime alertTime = LocalDateTime.now().plusMinutes(15);
-                if(appointmentTime.isBefore(alertTime) && appointmentTime.isAfter(LocalDateTime.now())){showAlert = true;}
+                if(appointmentTime.isBefore(alertTime) && appointmentTime.isAfter(LocalDateTime.now())){
+                    showAlert = true;
+                    upcomingAppointment = curAppointment;
+                }
             }
             if(showAlert){
+                int _appointmentId = upcomingAppointment.getAppointmentId();
+                LocalDateTime _start = upcomingAppointment.getStart();
+                String _date =  _start.getDayOfMonth() +"/" + _start.getMonthValue() +"/"+ _start.getYear();
+                String _time = _start.getHour() + ":" + _start.getMinute();
+                String alertText = rb.getString("MAINAPPOINTMENTALERTTEXT");
+                alertText += "\nID: " +_appointmentId +"\n" + _date + " "+ _time;
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle(rb.getString("MAINAPPOINTMENTALERTTITLE"));
                 alert.setHeaderText(rb.getString("MAINAPPOINTMENTALERTHEADER"));
-                alert.setContentText(rb.getString("MAINAPPOINTMENTALERTTEXT"));
+                alert.setContentText(alertText);
                 alert.showAndWait();
             }else{
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
