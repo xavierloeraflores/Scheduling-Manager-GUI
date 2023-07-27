@@ -109,7 +109,7 @@ public class CustomerController implements Initializable{
             valid = false;
             errorMessage += rb.getString("CUSTOMERERRNAME") + "\n";
         }
-        if (fieldAddress.getText() == "" || !fieldAddress.getText().contains(",")){
+        if (fieldAddress.getText() == ""){
             valid = false;
             errorMessage += rb.getString("CUSTOMERERRADD") + "\n";
         }
