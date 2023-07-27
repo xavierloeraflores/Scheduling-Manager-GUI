@@ -70,6 +70,6 @@ public class Contact {
      * @return Stringified contact details
      */
     @Override
-    public String toString(){return contactName;}
+    public String toString(){return contactId + " : " + contactName;}
 
 }

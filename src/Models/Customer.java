@@ -206,5 +206,5 @@ public class Customer {
      * @return Stringified customer details
      */
     @Override
-    public String toString(){return customerName;}
+    public String toString(){return customerId + " : " + customerName;}
 }

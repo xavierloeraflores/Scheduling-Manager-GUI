@@ -154,5 +154,5 @@ public class User {
      * @return Stringified user details
      */
     @Override
-    public String toString(){return username;}
+    public String toString(){return  userId + " : " + username;}
 }
