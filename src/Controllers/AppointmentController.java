@@ -1,8 +1,12 @@
 package Controllers;
 
+import Database.AppointmentDataAccessObject;
 import Database.ContactDataAccessObject;
+import Database.CustomerDataAccessObject;
 import Models.Appointment;
 import Models.Contact;
+import Models.Customer;
+import Models.FirstLevelDivision;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -93,7 +97,7 @@ public class AppointmentController implements Initializable{
     @FXML
     private DatePicker dateEnd;
     @FXML 
-    private ComboBox comboContact;
+    private ComboBox<Contact> comboContact;
     @FXML
     private Button buttonSave;
     @FXML 
@@ -120,7 +124,65 @@ public class AppointmentController implements Initializable{
     /**
      * 
      */
-    public void handleSave(){
+    public void handleSave(ActionEvent actionEvent) throws IOException {
+        Boolean valid = validate();
+        if (valid){
+            String _title = fieldTitle.getText();
+            String _desc = fieldDescription.getText();
+            String _location = fieldLocation.getText();
+            String _type = "";
+            String _startHourString = fieldStartHour.getText();
+            String _startMinString = fieldStartMin.getText();
+            String _endHourString = fieldEndHour.getText();
+            String _endMinString = fieldEndMin.getText();
+            String _customerIdString = fieldCustomerId.getText();
+            String _userIdString = fieldUserId.getText();
+            LocalDate _startLocalDate = dateStart.getValue();
+            LocalDate _endLocalDate = dateEnd.getValue();
+            Contact _contact = comboContact.getValue();
+
+
+            int _contactId = _contact.getContactId();
+            int _customerId = Integer.parseInt(_customerIdString);
+            int _userId = Integer.parseInt(_userIdString);
+            int _startHour = Integer.parseInt(_startHourString);
+            int _startMin = Integer.parseInt(_startMinString);
+            int _startYear=  _startLocalDate.getYear();
+            int _startMonth = _startLocalDate.getMonthValue();
+            int _startDay = _startLocalDate.getDayOfMonth();
+            int _endHour = Integer.parseInt(_endHourString);
+            int _endMin = Integer.parseInt(_endMinString);
+            int _endYear = _endLocalDate.getYear();
+            int _endMonth = _endLocalDate.getMonthValue();
+            int _endDay = _endLocalDate.getDayOfMonth();
+
+            LocalDateTime _start = LocalDateTime.of(_startYear, _startMonth, _startDay, _startHour, _startMin);
+            LocalDateTime _end = LocalDateTime.of(_endYear, _endMonth, _endDay, _endHour, _endMin);
+
+            String _updatedBy = LoginController.getUser().getUsername();
+            LocalDateTime _lastUpdate = LocalDateTime.now();
+
+
+            if(adding){
+                Appointment _appointment = new Appointment(0, _title, _desc, _location, _type, _start, _end, _lastUpdate, _updatedBy, _lastUpdate,_updatedBy, _customerId, _userId, _contactId);
+                AppointmentDataAccessObject.addAppointment(_appointment);
+                openPage(actionEvent, "/Views/Main.fxml");
+            }
+            if(!adding) {
+
+                appointment.setStart(_start);
+                appointment.setEnd(_end);
+                appointment.setCustomerId(_customerId);
+                appointment.setUserId(_userId);
+                appointment.setTitle(_title);
+                appointment.setDescription(_desc);
+                appointment.setLocation(_location);
+                appointment.setLastUpdatedBy(_updatedBy);
+                appointment.setLastUpdate(_lastUpdate);
+                AppointmentDataAccessObject.updateAppointment(appointment);
+                openPage(actionEvent, "/Views/Main.fxml");
+            }
+        }
 
     }
 
