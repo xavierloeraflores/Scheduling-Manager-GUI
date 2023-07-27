@@ -118,11 +118,83 @@ public class AppointmentController implements Initializable{
 
 
 
+
     /**
      * 
      */
     public Boolean validate(){
-        return true;
+        String errorMessage = "";
+        Boolean valid = true;
+
+        //field.getText() == ""
+        if (fieldTitle.getText() == ""){
+            valid = false;
+            errorMessage += rb.getString("ATITLE") + "\n";
+        }
+        if (fieldDescription.getText() == ""){
+            valid = false;
+            errorMessage += rb.getString("ADESC") + "\n";
+        }
+        if (fieldLocation.getText() == ""){
+            valid = false;
+            errorMessage += rb.getString("ALOCATION") + "\n";
+        }
+        if (fieldType.getText() == ""){
+            valid = false;
+            errorMessage += rb.getString("ATYPE") + "\n";
+        }
+        if (fieldStartHour.getText() == ""){
+            valid = false;
+            errorMessage += rb.getString("ASTARTHOUR") + "\n";
+        }
+        if (fieldStartMin.getText() == ""){
+            valid = false;
+            errorMessage += rb.getString("ASTARTMIN") + "\n";
+        }
+        if (fieldEndHour.getText() == ""){
+            valid = false;
+            errorMessage += rb.getString("AENDHOUR") + "\n";
+        }
+        if (fieldEndMin.getText() == ""){
+            valid = false;
+            errorMessage += rb.getString("AENDMIN") + "\n";
+        }
+        if (comboUser.getValue()==null){
+            valid = false;
+            errorMessage += rb.getString("ACOMBOUSER") + "\n";
+        }
+        if (comboCustomer.getValue()==null){
+            valid = false;
+            errorMessage += rb.getString("ACOMBOCUSTOMER") + "\n";
+        }
+        if (comboContact.getValue()==null){
+            valid = false;
+            errorMessage += rb.getString("ACOMBOCONTACT") + "\n";
+        }
+        if (dateStart.getValue()==null){
+            valid = false;
+            errorMessage += rb.getString("ADATESTART") + "\n";
+        }
+        if (dateEnd.getValue()==null){
+            valid = false;
+            errorMessage += rb.getString("ADATEEND") + "\n";
+        }
+
+
+
+
+        if(!valid){
+            errorMessage += rb.getString("ERROREMPTY") + "\n";
+        }
+
+
+
+        if(!valid){
+            displayError(errorMessage);
+            labelError.setText(errorMessage);
+        }
+
+        return valid;
     }
 
     /**
@@ -211,8 +283,6 @@ public class AppointmentController implements Initializable{
             Contact _contact = ContactDataAccessObject.getContactByContactID(_contactId);
             Customer _customer = CustomerDataAccessObject.getCustomerByCustomerID(_customerId);
             User _user = UserDataAccessObject.getUserByUserID(_userId);
-            Instant _startInstant = _start.atZone(LoginController.getTimezone().toZoneId()).toInstant();
-            Instant _endInstant = _end.atZone(LoginController.getTimezone().toZoneId()).toInstant();
 
             LocalDate _dateStart = LocalDate.of(_start.getYear(),_start.getMonth(), _start.getDayOfMonth());
             LocalDate _dateEnd = LocalDate.of(_end.getYear(),_end.getMonth(), _end.getDayOfMonth());
@@ -264,6 +334,7 @@ public class AppointmentController implements Initializable{
         String _selUser = rb.getString("APPOINTMENTSELUSER");
         String _selCustomer = rb.getString("APPOINTMENTSELCUSTOMER");
         String _autogen = rb.getString("AUTOGEN");
+        String _type = rb.getString("TYPE");
 
 
         if(adding){
@@ -286,6 +357,7 @@ public class AppointmentController implements Initializable{
         labelEndTime.setText(_endTime);
         labelCustomerId.setText(_customerId);
         labelUserId.setText(_userId);
+        labelType.setText(_type);
         comboContact.setPromptText(_selContact);
         comboCustomer.setPromptText(_selCustomer);
         comboUser.setPromptText(_selUser);
@@ -351,5 +423,17 @@ public class AppointmentController implements Initializable{
         addPartStage.show();
     }
 
+    /**
+     * Utility function that is used to display errors
+     * @param text String value text of the main text
+     */
+    public void displayError( String text)  {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(rb.getString("ERROR"));
+        alert.setHeaderText(rb.getString("ERRORHEADER"));
+        alert.setContentText(text);
+        alert.showAndWait();
+        labelError.setText(text);
+    }
 
 }

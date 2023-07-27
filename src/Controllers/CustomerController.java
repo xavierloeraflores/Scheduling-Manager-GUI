@@ -304,6 +304,7 @@ public class CustomerController implements Initializable{
         alert.setHeaderText(rb.getString("ERRORHEADER"));
         alert.setContentText(text);
         alert.showAndWait();
+        labelError.setText(text);
     }
 
     /**
