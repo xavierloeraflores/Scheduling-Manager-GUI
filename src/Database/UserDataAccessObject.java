@@ -82,7 +82,7 @@ public class UserDataAccessObject {
         ResultSet result = DAO.query(sql);
         while(result.next()){
             int _userId = result.getInt("User_ID");
-            String username = result.getString("Username");
+            String username = result.getString("User_Name");
             String password = result.getString("Password");
             Timestamp createDateTimestamp = result.getTimestamp("Create_Date");
             LocalDateTime createDateTime = createDateTimestamp.toLocalDateTime();
