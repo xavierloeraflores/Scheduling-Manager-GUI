@@ -68,13 +68,15 @@
             <Label fx:id="labelAutoGenId" layoutX="109.0" layoutY="20.0" text="Auto Gen ID" />
             <Label fx:id="labelContact" layoutX="5.0" layoutY="46.0" text="Contact" />
             <ComboBox fx:id="comboContact" layoutX="101.0" layoutY="43.0" prefWidth="150.0" />
-            <Button fx:id="buttonSave" onAction="#handleSave" layoutX="445.0" layoutY="149.0" mnemonicParsing="false" text="Save" />
-            <Button fx:id="buttonCancel" onAction="#handleCancel" layoutX="445.0" layoutY="197.0" mnemonicParsing="false" text="Cancel" />
+            <Button fx:id="buttonSave" layoutX="445.0" layoutY="149.0" mnemonicParsing="false" onAction="#handleSave" text="Save" />
+            <Button fx:id="buttonCancel" layoutX="445.0" layoutY="197.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
             <Label fx:id="labelError" layoutX="17.0" layoutY="302.0" prefHeight="92.0" prefWidth="509.0" textFill="RED" />
             <Label fx:id="labelCustomerId" layoutX="316.0" layoutY="38.0" text="Customer ID" />
             <Label fx:id="labelUserId" layoutX="317.0" layoutY="67.0" text="User ID" />
-            <TextField fx:id="fieldCustomerId" layoutX="413.0" layoutY="34.0" />
-            <TextField fx:id="fieldUserId" layoutX="409.0" layoutY="62.0" />
+            <ComboBox fx:id="comboCustomer" layoutX="408.0" layoutY="30.0" prefWidth="150.0" promptText="Customer" />
+            <ComboBox fx:id="comboUser" layoutX="408.0" layoutY="71.0" prefWidth="150.0" promptText="User" />
+            <Label fx:id="labelType" layoutX="322.0" layoutY="118.0" prefHeight="17.0" prefWidth="41.0" text="Type" />
+            <TextField fx:id="fieldType" layoutX="403.0" layoutY="106.0" />
       </children>
     </AnchorPane>
   </children>

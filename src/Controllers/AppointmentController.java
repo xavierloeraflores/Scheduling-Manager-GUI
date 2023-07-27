@@ -3,10 +3,8 @@ package Controllers;
 import Database.AppointmentDataAccessObject;
 import Database.ContactDataAccessObject;
 import Database.CustomerDataAccessObject;
-import Models.Appointment;
-import Models.Contact;
-import Models.Customer;
-import Models.FirstLevelDivision;
+import Database.UserDataAccessObject;
+import Models.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -70,6 +68,8 @@ public class AppointmentController implements Initializable{
     private Label labelCustomerId;
     @FXML
     private Label labelUserId;
+    @FXML
+    private Label labelType;
 
 
 
@@ -88,9 +88,8 @@ public class AppointmentController implements Initializable{
     @FXML
     private TextField fieldEndMin;
     @FXML
-    private TextField fieldCustomerId;
-    @FXML
-    private TextField fieldUserId;
+    private TextField fieldType;
+
     
     @FXML
     private DatePicker dateStart;
@@ -98,6 +97,11 @@ public class AppointmentController implements Initializable{
     private DatePicker dateEnd;
     @FXML 
     private ComboBox<Contact> comboContact;
+    @FXML
+    private ComboBox<Customer> comboCustomer;
+    @FXML
+    private ComboBox<User> comboUser;
+
     @FXML
     private Button buttonSave;
     @FXML 
@@ -130,21 +134,22 @@ public class AppointmentController implements Initializable{
             String _title = fieldTitle.getText();
             String _desc = fieldDescription.getText();
             String _location = fieldLocation.getText();
-            String _type = "";
+            String _type = fieldType.getText();
             String _startHourString = fieldStartHour.getText();
             String _startMinString = fieldStartMin.getText();
             String _endHourString = fieldEndHour.getText();
             String _endMinString = fieldEndMin.getText();
-            String _customerIdString = fieldCustomerId.getText();
-            String _userIdString = fieldUserId.getText();
             LocalDate _startLocalDate = dateStart.getValue();
             LocalDate _endLocalDate = dateEnd.getValue();
             Contact _contact = comboContact.getValue();
+            Customer _customer = comboCustomer.getValue();
+            User _user = comboUser.getValue();
+
 
 
             int _contactId = _contact.getContactId();
-            int _customerId = Integer.parseInt(_customerIdString);
-            int _userId = Integer.parseInt(_userIdString);
+            int _customerId = _customer.getCustomerId();
+            int _userId = _user.getUserId();
             int _startHour = Integer.parseInt(_startHourString);
             int _startMin = Integer.parseInt(_startMinString);
             int _startYear=  _startLocalDate.getYear();
@@ -198,38 +203,36 @@ public class AppointmentController implements Initializable{
             String _title = appointment.getTitle();
             String _desc = appointment.getDescription();
             String _location = appointment.getLocation();
+            String _type = appointment.getType();
             LocalDateTime _start = appointment.getStart();
             LocalDateTime _end = appointment.getEnd();
 
 
             Contact _contact = ContactDataAccessObject.getContactByContactID(_contactId);
+            Customer _customer = CustomerDataAccessObject.getCustomerByCustomerID(_customerId);
+            User _user = UserDataAccessObject.getUserByUserID(_userId);
             Instant _startInstant = _start.atZone(LoginController.getTimezone().toZoneId()).toInstant();
             Instant _endInstant = _end.atZone(LoginController.getTimezone().toZoneId()).toInstant();
 
             LocalDate _dateStart = LocalDate.of(_start.getYear(),_start.getMonth(), _start.getDayOfMonth());
             LocalDate _dateEnd = LocalDate.of(_end.getYear(),_end.getMonth(), _end.getDayOfMonth());
 
+
             fieldTitle.setText(_title);
-            fieldCustomerId.setText(""+_customerId);
-            fieldUserId.setText(""+_userId);
             fieldDescription.setText(_desc);
             fieldLocation.setText(_location);
-
+            fieldType.setText(_type);
             fieldStartHour.setText(""+_start.getHour());
             fieldStartMin.setText(""+ _start.getMinute());
             fieldEndHour.setText(""+_end.getHour());
             fieldEndMin.setText(""+_end.getMinute());
 
-
             dateStart.setValue(_dateStart);
             dateEnd.setValue(_dateEnd);
 
-
-
-
+            comboCustomer.setValue(_customer);
+            comboUser.setValue(_user);
             comboContact.setValue(_contact);
-
-
 
 
 
@@ -297,6 +300,8 @@ public class AppointmentController implements Initializable{
             adding = MainController.getAdding();
             mapLabels();
             comboContact.setItems(ContactDataAccessObject.getAllContacts());
+            comboUser.setItems(UserDataAccessObject.getAllUsers());
+            comboCustomer.setItems(CustomerDataAccessObject.getAllCustomers());
             if (!adding){
                 mapUpdating();
             }
