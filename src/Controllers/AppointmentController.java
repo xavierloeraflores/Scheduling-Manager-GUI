@@ -180,12 +180,59 @@ public class AppointmentController implements Initializable{
             errorMessage += rb.getString("ADATEEND") + "\n";
         }
 
-
-
-
         if(!valid){
             errorMessage += rb.getString("ERROREMPTY") + "\n";
         }
+
+        //Checks for integers
+        if (valid){
+            if (!fieldStartHour.getText().matches("-?\\d+")){
+                valid = false;
+                errorMessage += rb.getString("ASTARTHOUR") + "\n";
+            }
+            if (!fieldStartMin.getText().matches("-?\\d+")){
+                valid = false;
+                errorMessage += rb.getString("ASTARTMIN") + "\n";
+            }
+            if (!fieldEndHour.getText().matches("-?\\d+")){
+                valid = false;
+                errorMessage += rb.getString("AENDHOUR") + "\n";
+            }
+            if (!fieldEndMin.getText().matches("-?\\d+")){
+                valid = false;
+                errorMessage += rb.getString("AENDMIN") + "\n";
+            }
+        }
+
+        if (valid){
+            String _startHourString = fieldStartHour.getText();
+            String _startMinString = fieldStartMin.getText();
+            String _endHourString = fieldEndHour.getText();
+            String _endMinString = fieldEndMin.getText();
+
+            int _startHour = Integer.parseInt(_startHourString);
+            int _startMin = Integer.parseInt(_startMinString);
+            int _endHour = Integer.parseInt(_endHourString);
+            int _endMin = Integer.parseInt(_endMinString);
+            if (_startHour<0 || _startHour>24){
+                valid = false;
+                errorMessage += rb.getString("ASTARTHOUR") + "\n";
+            }
+            if (_startMin<0 || _startMin>60){
+                valid = false;
+                errorMessage += rb.getString("ASTARTMIN") + "\n";
+            }
+            if (_endHour<0 || _endHour>24){
+                valid = false;
+                errorMessage += rb.getString("AENDHOUR") + "\n";
+            }
+            if (_endMin<0 || _endMin>60){
+                valid = false;
+                errorMessage += rb.getString("AENDMIN") + "\n";
+            }
+        }
+
+
 
 
         if(valid && false){
