@@ -145,7 +145,7 @@ public class CustomerController implements Initializable{
     }
 
     /**
-     * 
+     * Handles the save logic for the Customer
      */
     public void handleSave(ActionEvent actionEvent) throws IOException {
         Boolean valid = validate();

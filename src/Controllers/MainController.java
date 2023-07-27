@@ -256,7 +256,9 @@ public class MainController implements Initializable{
                 alert.initModality(Modality.NONE);
                 alert.setTitle(rb.getString("MAINDELETECONFIRMTITLE"));
                 alert.setHeaderText(rb.getString("MAINDELETECONFIRMHEADER"));
-                alert.setContentText(rb.getString("MAINDELETEAPPOINTMENTCONFIRMTEXT"));
+                String _text = rb.getString("MAINDELETEAPPOINTMENTCONFIRMTEXT");
+                _text += "ID: " + selectedAppointment.getAppointmentId()+ " Type: "+selectedAppointment.getType();
+                alert.setContentText(_text);
                 Optional<ButtonType> result = alert.showAndWait();
                 if(result.get() == ButtonType.OK) {
                     int appointmentId = selectedAppointment.getAppointmentId();

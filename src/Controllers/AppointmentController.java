@@ -120,7 +120,7 @@ public class AppointmentController implements Initializable{
 
 
     /**
-     * 
+     * Validates inputs for the Appointment
      */
     public Boolean validate(){
         String errorMessage = "";
@@ -188,6 +188,16 @@ public class AppointmentController implements Initializable{
         }
 
 
+        if(valid && false){
+            errorMessage += rb.getString("ABUSINESSHOURS") + "\n";
+            valid = false;
+        }
+
+        if(valid && false){
+            errorMessage += rb.getString("ACUSTOMEROVERLAP") + "\n";
+            valid = false;
+        }
+
 
         if(!valid){
             displayError(errorMessage);
@@ -198,7 +208,7 @@ public class AppointmentController implements Initializable{
     }
 
     /**
-     * 
+     * Handles the save logic for the Appointment
      */
     public void handleSave(ActionEvent actionEvent) throws IOException {
         Boolean valid = validate();
