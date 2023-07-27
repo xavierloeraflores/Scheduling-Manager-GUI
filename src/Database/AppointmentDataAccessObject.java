@@ -7,10 +7,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.time.*;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 /**
  * Class representing all the methods to query the appointments table
@@ -299,14 +302,20 @@ public class AppointmentDataAccessObject {
     public static void addAppointment(Appointment _appointment) {
         try{
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            ZoneId zoneId = ZoneId.systemDefault();
+            ZoneId UTC = ZoneId.of("UTC");
 
             String sqlInsert = "INSERT INTO appointments(Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID) ";
             String Title = "'" + _appointment.getTitle() + "', ";
             String Description = "'" + _appointment.getDescription() + "', ";
             String Location = "'" + _appointment.getLocation() + "', ";
             String Type = "'" + _appointment.getType() + "', ";
-            LocalDateTime StartTime= _appointment.getStart();
-            LocalDateTime EndTime = _appointment.getEnd();
+            LocalDateTime _startTime= _appointment.getStart();
+            LocalDateTime _endTime = _appointment.getEnd();
+            ZonedDateTime _zonedStartTime = _startTime.atZone(zoneId);
+            ZonedDateTime StartTime = _zonedStartTime.withZoneSameInstant(UTC);
+            ZonedDateTime _zonedEndTime = _endTime.atZone(zoneId);
+            ZonedDateTime EndTime=_zonedEndTime.withZoneSameInstant(UTC);
             LocalDateTime CreateDateTime = _appointment.getCreateDate();
             LocalDateTime LastUpdateTime = _appointment.getLastUpdate();
             String Start = "'" + StartTime.format(formatter).toString() + "', ";
@@ -337,13 +346,18 @@ public class AppointmentDataAccessObject {
         try{
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String sqlUpdate = "UPDATE appointments ";
-
+            ZoneId zoneId = ZoneId.systemDefault();
+            ZoneId UTC = ZoneId.of("UTC");
             String Title = "Title='" + _appointment.getTitle() + "', ";
             String Description = "Description='" + _appointment.getDescription() + "', ";
             String Location = "Location='" + _appointment.getLocation() + "', ";
             String Type = "Type='" + _appointment.getType() + "', ";
-            LocalDateTime StartTime= _appointment.getStart();
-            LocalDateTime EndTime = _appointment.getEnd();
+            LocalDateTime _startTime= _appointment.getStart();
+            LocalDateTime _endTime = _appointment.getEnd();
+            ZonedDateTime _zonedStartTime = _startTime.atZone(zoneId);
+            ZonedDateTime StartTime = _zonedStartTime.withZoneSameInstant(UTC);
+            ZonedDateTime _zonedEndTime = _endTime.atZone(zoneId);
+            ZonedDateTime EndTime=_zonedEndTime.withZoneSameInstant(UTC);
             LocalDateTime LastUpdateTime = _appointment.getLastUpdate();
             String Start = "Start='" + StartTime.format(formatter).toString() + "', ";
             String End = "End='" + EndTime.format(formatter).toString() + "', ";
