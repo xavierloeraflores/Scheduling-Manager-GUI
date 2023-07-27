@@ -261,7 +261,10 @@ public class AppointmentController implements Initializable{
         String _customerId  = rb.getString("APPOINTMENTCUSTOMERID");
         String _userId  = rb.getString("APPOINTMENTUSERID");
         String _selContact = rb.getString("APPOINTMENTSELCONTACT");
+        String _selUser = rb.getString("APPOINTMENTSELUSER");
+        String _selCustomer = rb.getString("APPOINTMENTSELCUSTOMER");
         String _autogen = rb.getString("AUTOGEN");
+
 
         if(adding){
             _autogen = _autogen + MainController.getAllAppointments().size();
@@ -284,6 +287,8 @@ public class AppointmentController implements Initializable{
         labelCustomerId.setText(_customerId);
         labelUserId.setText(_userId);
         comboContact.setPromptText(_selContact);
+        comboCustomer.setPromptText(_selCustomer);
+        comboUser.setPromptText(_selUser);
     }
 
 
