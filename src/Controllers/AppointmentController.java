@@ -114,7 +114,7 @@ public class AppointmentController implements Initializable{
 
 
 
-    
+
 
     /**
      * Validates inputs for the Appointment

@@ -96,6 +96,86 @@ public class AppointmentDataAccessObject {
         return appointments;
     }
 
+    /**
+     * This function queries a list of appointments this month
+     * @return [ObservableList] of Appointment objects
+     */
+    public static ObservableList<Appointment> getAllAppointmentsThisMonth() throws SQLException {
+        String sql = "SELECT * FROM appointments";
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+        ResultSet result = DAO.query(sql);
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime month = LocalDateTime.now().plusDays(31);
+        while(result.next()){
+            Appointment appointmentResult;
+            int appointmentId = result.getInt("Appointment_ID");
+            int customerId = result.getInt("Customer_ID");
+            int userId = result.getInt("User_ID");
+            int contactId = result.getInt("Contact_ID");
+            String title = result.getString("Title");
+            String description = result.getString("Description");
+            String location = result.getString("Location");
+            String type = result.getString("Type");
+            Timestamp startDateTimestamp = result.getTimestamp("Start");
+            LocalDateTime startDateTime = startDateTimestamp.toLocalDateTime();
+            Timestamp endDateTimestamp = result.getTimestamp("End");
+            LocalDateTime endDateTime = endDateTimestamp.toLocalDateTime();
+            Timestamp createDateTimestamp = result.getTimestamp("Create_Date");
+            LocalDateTime createDateTime = createDateTimestamp.toLocalDateTime();
+            String createdBy = result.getString("Created_By");
+            Timestamp lastUpdateTimestamp = result.getTimestamp("Last_Update");
+            LocalDateTime lastUpdateTime=lastUpdateTimestamp.toLocalDateTime();
+            String lastUpdatedBy = result.getString("Last_Updated_By");
+
+            appointmentResult = new Appointment(appointmentId, title, description, location, type, startDateTime,endDateTime, createDateTime, createdBy, lastUpdateTime, lastUpdatedBy, customerId, userId, contactId);
+            LocalDateTime _date = appointmentResult.getStart();
+            if(_date.isAfter(now) && _date.isBefore(month)){
+                appointments.add(appointmentResult);
+            }
+        }
+        return appointments;
+    }
+    /**
+     * This function queries a list of appointments this week
+     * @return [ObservableList] of Appointment objects
+     */
+    public static ObservableList<Appointment> getAllAppointmentsThisWeek() throws SQLException {
+        String sql = "SELECT * FROM appointments";
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+        ResultSet result = DAO.query(sql);
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime week = LocalDateTime.now().plusDays(8);
+        while(result.next()){
+            Appointment appointmentResult;
+            int appointmentId = result.getInt("Appointment_ID");
+            int customerId = result.getInt("Customer_ID");
+            int userId = result.getInt("User_ID");
+            int contactId = result.getInt("Contact_ID");
+            String title = result.getString("Title");
+            String description = result.getString("Description");
+            String location = result.getString("Location");
+            String type = result.getString("Type");
+            Timestamp startDateTimestamp = result.getTimestamp("Start");
+            LocalDateTime startDateTime = startDateTimestamp.toLocalDateTime();
+            Timestamp endDateTimestamp = result.getTimestamp("End");
+            LocalDateTime endDateTime = endDateTimestamp.toLocalDateTime();
+            Timestamp createDateTimestamp = result.getTimestamp("Create_Date");
+            LocalDateTime createDateTime = createDateTimestamp.toLocalDateTime();
+            String createdBy = result.getString("Created_By");
+            Timestamp lastUpdateTimestamp = result.getTimestamp("Last_Update");
+            LocalDateTime lastUpdateTime=lastUpdateTimestamp.toLocalDateTime();
+            String lastUpdatedBy = result.getString("Last_Updated_By");
+
+            appointmentResult = new Appointment(appointmentId, title, description, location, type, startDateTime,endDateTime, createDateTime, createdBy, lastUpdateTime, lastUpdatedBy, customerId, userId, contactId);
+            LocalDateTime _date = appointmentResult.getStart();
+            if(_date.isAfter(now) && _date.isBefore(week)){
+                appointments.add(appointmentResult);
+            }
+        }
+        return appointments;
+    }
 
     /**
      * This function queries a list of appointments
