@@ -91,7 +91,7 @@
                </children>
             </Pane>
             <Label fx:id="labelError" layoutX="26.0" layoutY="570.0" prefHeight="88.0" prefWidth="600.0" textFill="RED" />
-            <Button fx:id="buttonReports" layoutX="742.0" layoutY="602.0" mnemonicParsing="false" text="Reports" />
+            <Button fx:id="buttonReports" onAction="#openReports" layoutX="742.0" layoutY="602.0" mnemonicParsing="false" text="Reports" />
          </children>
     </AnchorPane>
   </children>

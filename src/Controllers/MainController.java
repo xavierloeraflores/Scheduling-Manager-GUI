@@ -189,9 +189,7 @@ public class MainController implements Initializable{
         };
         updateTables(fetchTables);
     }
-
-
-
+    
     /**
      * Interface for the running lambdas in teh displayError function
      */
@@ -207,7 +205,15 @@ public class MainController implements Initializable{
         tableA.setItems(_appointments);
     }
 
-
+    /**
+     * Sends the user to the Reports screen.
+     * @param actionEvent JavaFX action event
+     * @throws IOException
+     */
+    @FXML
+    public void openReports(ActionEvent actionEvent) throws IOException {
+        openPage(actionEvent, "/Views/Reports.fxml");
+    }
 
 
     /**
@@ -251,7 +257,6 @@ public class MainController implements Initializable{
                 displayError(rb.getString("MAINERRORSELECTCUSTOMER"), (str)->labelError.setText(""));
                 valid = false;
             }
-
             if(valid){
                 int customerId = selectedCustomer.getCustomerId();
                 ObservableList<Appointment> customerAppointments = FXCollections.observableArrayList();
@@ -261,9 +266,6 @@ public class MainController implements Initializable{
                     valid=false;
                 }
             }
-
-
-
             if(valid){
                 Alert alert = new Alert((Alert.AlertType.CONFIRMATION));
                 alert.initModality(Modality.NONE);
@@ -387,14 +389,10 @@ public class MainController implements Initializable{
                 alert.setContentText(rb.getString("MAINNOAPPOINTMENTALERTTEXT"));
                 alert.showAndWait();
             }
-
         }catch(Exception err){
             System.out.println(err);
         }
-
     }
-
-
 
     /**
      * Function that correctly maps all the labels to the correct language
@@ -424,8 +422,6 @@ public class MainController implements Initializable{
         radioMonthly.setText(_monthly);
         radioWeekly.setText(_weekly);
         radioAll.setText(_all);
-
-
     }
 
     /**
@@ -443,7 +439,6 @@ public class MainController implements Initializable{
         aColumnUser.setCellValueFactory(new PropertyValueFactory("userId"));
         aColumnContact.setCellValueFactory(new PropertyValueFactory("contactId"));
 
-
         cColumnID.setCellValueFactory(new PropertyValueFactory("customerId"));
         cColumnName.setCellValueFactory(new PropertyValueFactory("customerName"));
         cColumnAddress.setCellValueFactory(new PropertyValueFactory("address"));
@@ -451,11 +446,8 @@ public class MainController implements Initializable{
         cColumnPhone.setCellValueFactory(new PropertyValueFactory("phone"));
         cColumnDivision.setCellValueFactory(new PropertyValueFactory("divisionId"));
 
-
         tableA.setItems(getAllAppointments());
         tableC.setItems(getAllCustomers());
-
-
     }
 
     /**
@@ -468,9 +460,6 @@ public class MainController implements Initializable{
         }catch(Exception err){
             System.out.println(err);
         }
-
-
-
     }
 
     /**
@@ -490,9 +479,6 @@ public class MainController implements Initializable{
         radioAll.setSelected(true);
 
     }
-
-
-
 
     /**
      * Utility function that is used to switch between pages
