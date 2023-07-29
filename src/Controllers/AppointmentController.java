@@ -23,11 +23,11 @@ import javafx.scene.Parent;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.net.URL;
 import java.sql.Date;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import java.time.*;
 import java.util.ResourceBundle;
 import java.io.IOException;
 import java.util.Optional;
@@ -114,10 +114,7 @@ public class AppointmentController implements Initializable{
 
 
 
-
-
-
-
+    
 
     /**
      * Validates inputs for the Appointment
@@ -234,15 +231,86 @@ public class AppointmentController implements Initializable{
 
 
 
+        if (valid){
+            LocalDate _startLocalDate = dateStart.getValue();
+            LocalDate _endLocalDate = dateEnd.getValue();
+            String _startHourString = fieldStartHour.getText();
+            String _startMinString = fieldStartMin.getText();
+            String _endHourString = fieldEndHour.getText();
+            String _endMinString = fieldEndMin.getText();
 
-        if(valid && false){
-            errorMessage += rb.getString("ABUSINESSHOURS") + "\n";
-            valid = false;
-        }
+            int _startHour = Integer.parseInt(_startHourString);
+            int _startMin = Integer.parseInt(_startMinString);
+            int _endHour = Integer.parseInt(_endHourString);
+            int _endMin = Integer.parseInt(_endMinString);
+            int _startYear=  _startLocalDate.getYear();
+            int _startMonth = _startLocalDate.getMonthValue();
+            int _startDay = _startLocalDate.getDayOfMonth();
+            int _endYear = _endLocalDate.getYear();
+            int _endMonth = _endLocalDate.getMonthValue();
+            int _endDay = _endLocalDate.getDayOfMonth();
 
-        if(valid && false){
-            errorMessage += rb.getString("ACUSTOMEROVERLAP") + "\n";
-            valid = false;
+            LocalDateTime _start = LocalDateTime.of(_startYear, _startMonth, _startDay, _startHour, _startMin);
+            LocalDateTime _end = LocalDateTime.of(_endYear, _endMonth, _endDay, _endHour, _endMin);
+
+            if(_start.isAfter(_end)){
+                errorMessage += rb.getString("ATIME") + "\n";
+                valid = false;
+            }
+            String utcM = ""+ _startMonth;
+            String utcD = "" + _startDay;
+            if(_startMonth<10){ utcM = "0"+utcM;}
+            if(_startDay<10){utcD = "0"+utcD;}
+            ZoneId ET_zoneId =ZoneId.of("America/New_York");
+            ZonedDateTime zoneBStart = ZonedDateTime.of(_startYear, _startMonth, _startDay, 8, 0,0,0,ET_zoneId );
+            ZonedDateTime zonedBEnd= ZonedDateTime.of(dateEnd.getValue().atTime(22, 0),ET_zoneId).withHour(22);
+            ZonedDateTime zoneStart = ZonedDateTime.of(_start, LoginController.getTimezone().toZoneId());
+            ZonedDateTime zoneEnd = ZonedDateTime.of(_end, LoginController.getTimezone().toZoneId());
+
+
+
+            if(zoneStart.isBefore(zoneBStart) || zoneStart.isAfter(zonedBEnd)){
+                errorMessage += rb.getString("ABUSINESSHOURS") + "1\n";
+                valid = false;
+            }
+            if( zoneEnd.isBefore(zoneBStart) || zoneEnd.isAfter(zonedBEnd)){
+                errorMessage += rb.getString("ABUSINESSHOURS") + "2\n";
+                valid = false;
+            }
+
+            try {
+                Customer _customer = comboCustomer.getValue();
+                int _customerId = _customer.getCustomerId();
+                ObservableList<Appointment> _appointments = AppointmentDataAccessObject.getAppointmentByCustomerID(_customerId);
+
+                for(int i = 0; i< _appointments.size(); i++){
+                    Appointment _cur = _appointments.get(i);
+                    LocalDateTime _curStart = _cur.getStart();
+                    LocalDateTime _curEnd = _cur.getEnd();
+                    if (adding && _curStart.isAfter(_start) && _curStart.isBefore(_end) ) {
+                        errorMessage += rb.getString("ACUSTOMEROVERLAP") + "\n";
+                        valid = false;
+                    }
+                    if (valid && adding && _curEnd.isAfter(_start) && _curEnd.isBefore(_end)) {
+                        errorMessage += rb.getString("ACUSTOMEROVERLAP") + "\n";
+                        valid = false;
+                    }
+                    if (valid && !adding && appointment.getAppointmentId() !=_cur.getAppointmentId() && _curStart.isAfter(_start) && _curStart.isBefore(_end) ) {
+                        errorMessage += rb.getString("ACUSTOMEROVERLAP") + "\n";
+                        valid = false;
+                    }
+                    if (valid && !adding && appointment.getAppointmentId() !=_cur.getAppointmentId() && _curEnd.isAfter(_start) && _curEnd.isBefore(_end)) {
+                        errorMessage += rb.getString("ACUSTOMEROVERLAP") + "\n";
+                        valid = false;
+                    }
+
+
+                }
+
+            }catch(Exception err){
+                System.out.println(err);
+            }
+
         }
 
 
@@ -290,7 +358,7 @@ public class AppointmentController implements Initializable{
             int _endMonth = _endLocalDate.getMonthValue();
             int _endDay = _endLocalDate.getDayOfMonth();
 
-            LocalDateTime _start = LocalDateTime.of(_startYear, _startMonth, _startDay, _startHour, _startMin);
+            LocalDateTime _start =  LocalDateTime.of(_startYear, _startMonth, _startDay, _startHour, _startMin);
             LocalDateTime _end = LocalDateTime.of(_endYear, _endMonth, _endDay, _endHour, _endMin);
 
             String _updatedBy = LoginController.getUser().getUsername();
