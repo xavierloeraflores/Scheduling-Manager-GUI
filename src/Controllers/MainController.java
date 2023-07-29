@@ -63,6 +63,8 @@ public class MainController implements Initializable{
     private RadioButton radioMonthly;
     @FXML
     private RadioButton radioWeekly;
+    @FXML
+    private RadioButton radioAll;
 
     @FXML
     private TableView<Appointment> tableA;
@@ -133,6 +135,79 @@ public class MainController implements Initializable{
      * @return [ObservableList<Appointment>] list from the table
      */
     static public  ObservableList<Appointment> getAllAppointments(){return appointments;}
+
+    /**
+     * When the user presses the   Weekly  radio button, appointments list is updated
+     * @param actionEvent JavaFX action event
+     */
+    @FXML
+    private void setWeekly(ActionEvent actionEvent) {
+        radioMonthly.setSelected(false);
+        radioAll.setSelected(false);
+        FetchTables fetchTables = ()->{
+            try{
+                return AppointmentDataAccessObject.getAllAppointmentsThisWeek();
+            }catch(Exception err){
+                return  FXCollections.observableArrayList();
+            }
+        };
+        updateTables(fetchTables);
+    }
+
+    /**
+     * When the user presses the  Monthly radio button, appointments list is updated
+     * @param actionEvent JavaFX action event
+     */
+    @FXML
+    private void setMonthly(ActionEvent actionEvent) {
+
+        radioWeekly.setSelected(false);
+        radioAll.setSelected(false);
+        FetchTables fetchTables = ()->{
+            try{
+                return AppointmentDataAccessObject.getAllAppointmentsThisMonth();
+            }catch(Exception err){
+                return  FXCollections.observableArrayList();
+            }
+        };
+        updateTables(fetchTables);
+    }
+    /**
+     * When the user presses the All radio button, appointments list is updated
+     * @param actionEvent JavaFX action event
+     */
+    @FXML
+    private void setAll(ActionEvent actionEvent) {
+        radioMonthly.setSelected(false);
+        radioWeekly.setSelected(false);
+        FetchTables fetchTables = ()->{
+            try{
+                return AppointmentDataAccessObject.getAllAppointments();
+            }catch(Exception err){
+                return  FXCollections.observableArrayList();
+            }
+        };
+        updateTables(fetchTables);
+    }
+
+
+
+    /**
+     * Interface for the running lambdas in teh displayError function
+     */
+    interface FetchTables{
+        ObservableList<Appointment> run();
+    }
+    /**
+     * Utility function that is update tables
+     * @param func LAMBDA Function
+     */
+    public void updateTables(FetchTables func)  {
+        ObservableList<Appointment> _appointments = func.run();
+        tableA.setItems(_appointments);
+    }
+
+
 
 
     /**
@@ -335,6 +410,7 @@ public class MainController implements Initializable{
         String _delete = rb.getString("MAINDELETE");
         String _monthly = rb.getString("MAINMONTHLY");
         String _weekly = rb.getString("MAINWEEKLY");
+        String _all = rb.getString("ALL");
 
         labelAppointments.setText(_appointment);
         labelCustomers.setText(_customer);
@@ -347,6 +423,7 @@ public class MainController implements Initializable{
         buttonReports.setText(_reports);
         radioMonthly.setText(_monthly);
         radioWeekly.setText(_weekly);
+        radioAll.setText(_all);
 
 
     }
@@ -410,6 +487,7 @@ public class MainController implements Initializable{
         mapLabels();
         mapTables();
         appointmentAlert();
+        radioAll.setSelected(true);
 
     }
 

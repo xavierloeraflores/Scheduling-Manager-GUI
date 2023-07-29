@@ -64,8 +64,9 @@
                     </columns>
                   </TableView>
                   <Label fx:id="labelAppointments" layoutX="20.0" layoutY="6.0" text="Appointments" />
-                  <RadioButton fx:id="radioWeekly" layoutX="884.0" layoutY="66.0" mnemonicParsing="false" text="Weekly" />
-                  <RadioButton fx:id="radioMonthly" layoutX="882.0" layoutY="30.0" mnemonicParsing="false" text="Monthly" />
+                  <RadioButton fx:id="radioWeekly" onAction="#setWeekly" layoutX="884.0" layoutY="66.0" mnemonicParsing="false" text="Weekly" />
+                  <RadioButton fx:id="radioMonthly" onAction="#setMonthly" layoutX="882.0" layoutY="30.0" mnemonicParsing="false" text="Monthly" />
+                   <RadioButton fx:id="radioAll" onAction="#setAll" layoutX="882.0" layoutY="5.0" mnemonicParsing="false" text="All" />
                   <Button fx:id="buttonAddA" onAction="#addAppointment" layoutX="896.0" layoutY="101.0" mnemonicParsing="false" text="Add" />
                   <Button fx:id="buttonUpdateA" onAction="#updateAppointment" layoutX="887.0" layoutY="146.0" mnemonicParsing="false" text="Update" />
                   <Button fx:id="buttonDeleteA" onAction="#deleteAppointment" layoutX="889.0" layoutY="193.0" mnemonicParsing="false" text="Delete" />
