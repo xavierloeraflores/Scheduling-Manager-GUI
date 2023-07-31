@@ -120,12 +120,12 @@ public class MainController implements Initializable{
     public static Appointment getAppointment(){return selectedAppointment;}
 
     /**
-     * @return [ObservableList<Customer>] list from the table
+     * @return [ObservableList Customer] list from the table
      */
     static public  ObservableList<Customer> getAllCustomers(){return customers;}
 
     /**
-     * @return [ObservableList<Appointment>] list from the table
+     * @return [ObservableList Appointment] list from the table
      */
     static public  ObservableList<Appointment> getAllAppointments(){return appointments;}
 
