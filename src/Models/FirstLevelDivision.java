@@ -1,7 +1,6 @@
 package Models;
 
 import java.time.LocalDateTime;
-
 /**
  * A class representing the FirstLevelDivision object
  * @author xavierloeraflores
@@ -14,7 +13,6 @@ public class FirstLevelDivision {
     private LocalDateTime lastUpdate;
     private String lastUpdatedBy;
     private int countryID;
-    
     /**
      * Constructor method for the FirstLevelDivision object
      * @param divisionId the divisionId integer value to be set on the FirstLevelDivision object
@@ -34,7 +32,6 @@ public class FirstLevelDivision {
         this.lastUpdatedBy=lastUpdatedBy;
         this.countryID=countryID;
     }
-    
     //Getters
     /**
      * @return the divisionId integer value on the FirstLevelDivision object

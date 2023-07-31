@@ -6,31 +6,21 @@ import Database.DivisionDataAccessObject;
 import Models.Country;
 import Models.Customer;
 import Models.FirstLevelDivision;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXMLLoader;
-
 import javafx.event.ActionEvent;
-
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.Modality;
-
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import java.io.IOException;
 import java.util.Optional;
-
-
 
 /**
  * Controller class for the Customer.fmxl form.
@@ -38,8 +28,6 @@ import java.util.Optional;
  * @author xavierloeraflores
  */
 public class CustomerController implements Initializable{
-
-
     @FXML
     private Label labelId;
     @FXML
@@ -59,10 +47,6 @@ public class CustomerController implements Initializable{
     @FXML
     private Label labelError;
 
-
-
-
-
     @FXML 
     private TextField fieldName;
     @FXML 
@@ -77,27 +61,16 @@ public class CustomerController implements Initializable{
     @FXML 
     private Button buttonCancel;
 
-
     @FXML 
     private ComboBox<Country> comboCountry;
     @FXML 
     private ComboBox<FirstLevelDivision> comboDivision;
-
-
 
     static private ResourceBundle rb;
     private String language;
     private String errorMessage;
     private Boolean adding = true;
     private Customer customer;
-
-
-
-
-
-
-
-
     /**
      * Validates inputs for the Customer
      */
@@ -129,18 +102,13 @@ public class CustomerController implements Initializable{
             valid = false;
             errorMessage += rb.getString("CUSTOMERERRDIV") + "\n";
         }
-
-
         if(!valid){
             errorMessage += rb.getString("ERROREMPTY") + "\n";
         }
-
-
         if(!valid){
             displayError(errorMessage);
             labelError.setText(errorMessage);
         }
-
         return valid;
     }
 
@@ -177,7 +145,6 @@ public class CustomerController implements Initializable{
             }
         }
     }
-
     /**
      * Handles the combo box logix for selecting a country
      */
@@ -191,8 +158,6 @@ public class CustomerController implements Initializable{
         }
 
     }
-
-
     /**
      * Initializes the FXML Screen 
      * @param url parameter for the FXML Screen
@@ -226,12 +191,10 @@ public class CustomerController implements Initializable{
         alert.setHeaderText(rb.getString("CANCELHEADER"));
         alert.setContentText(rb.getString("CANCELCONFIRM"));
         Optional<ButtonType> result = alert.showAndWait();
-
         if (result.get() == ButtonType.OK) {
             openPage(actionEvent,"/Views/Main.fxml");
         }
     }
-
     /**
      * Maps the textFields with data
      */
@@ -248,12 +211,10 @@ public class CustomerController implements Initializable{
             Country _country = CountryDataAccessObject.getCountryByCountryID(_countryId);
             comboCountry.setValue(_country);
             comboDivision.setValue(_division);
-
         }catch(Exception err){
             System.out.println(err);
         }
     }
-
     /**
      * Maps the labels to the correct language
      */
@@ -277,8 +238,6 @@ public class CustomerController implements Initializable{
         }else{
             _userId = _userId + MainController.getCustomer().getCustomerId();
         }
-
-
         buttonSave.setText(_save);
         buttonCancel.setText(_cancel);
         labelUserId.setText(_userId);
@@ -291,7 +250,6 @@ public class CustomerController implements Initializable{
         labelDivision.setText(_division);
         comboCountry.setPromptText(_selectCountry);
         comboDivision.setPromptText(_selectDivision);
-
     }
 
     /**
@@ -306,7 +264,6 @@ public class CustomerController implements Initializable{
         alert.showAndWait();
         labelError.setText(text);
     }
-
     /**
      * Utility function that is used to switch between pages
      * @param actionEvent JavaFX action event
@@ -319,5 +276,4 @@ public class CustomerController implements Initializable{
         addPartStage.setScene(addPartScene);
         addPartStage.show();
     }
-
 }

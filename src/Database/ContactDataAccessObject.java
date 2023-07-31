@@ -1,25 +1,15 @@
 package Database;
 import Models.Contact;
-import main.JDBC;
-
-
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Class representing all the methods to query the contacts table
  * @author xavierloeraflores
  */
 public class ContactDataAccessObject {
-
-
-
     /**
      * This function queries a contact
      * @param _contactId the contactID int value
@@ -39,14 +29,10 @@ public class ContactDataAccessObject {
         }
         return null;
     }
-
-
-
     /**
      * This function queries a list of contacts
      * @return [ObservableList] of Contact objects
      */
-
     public static ObservableList<Contact> getAllContacts() throws SQLException {
         String sql = "SELECT * FROM contacts";
         ObservableList<Contact> contacts = FXCollections.observableArrayList();
@@ -62,7 +48,6 @@ public class ContactDataAccessObject {
         }
         return contacts;
     }
-
 
     /**
      * This function queries a list of contacts
@@ -85,8 +70,6 @@ public class ContactDataAccessObject {
         return contacts;
     }
 
-
-
     /**
      * This function deletes a contact record
      * @param _contactId the contactID int value
@@ -99,7 +82,6 @@ public class ContactDataAccessObject {
             System.out.println(error);
         }
     }
-
     /**
      * This function deletes a contact record
      * @param _email the email string value
@@ -113,9 +95,6 @@ public class ContactDataAccessObject {
         }
     }
 
-
-
-
     /**
      * This function adds a contact record
      * @param _contact the Contact object
@@ -123,11 +102,8 @@ public class ContactDataAccessObject {
     public static void addContact(Contact _contact) {
         try{
             String sqlInsert = "INSERT INTO contacts (Contact_Name, Email) ";
-
-
             String ContactName = "'" + _contact.getContactName() + "', ";
             String Email = "'" + _contact.getEmail() + "')";
-
             String sqlValues = "VALUES("+ContactName+Email;
             String sql = sqlInsert + sqlValues;
             DAO.update(sql);
@@ -143,21 +119,14 @@ public class ContactDataAccessObject {
     public static void updateContact(Contact _contact) {
         try{
             String sqlUpdate = "UPDATE contacts ";
-
             String ContactName = "Contact_Name='" + _contact.getContactName() + "', ";
             String Email = "Email='" + _contact.getEmail() + "'";
-
-
             String sqlSet = "SET "+ ContactName+Email;
             String sqlWhere = " WHERE Contact_ID = "+ _contact.getContactId();
-
             String sql = sqlUpdate + sqlSet + sqlWhere;
             DAO.update(sql);
         } catch(Exception error){
             System.out.println(error);
         }
     }
-
-
-
 }

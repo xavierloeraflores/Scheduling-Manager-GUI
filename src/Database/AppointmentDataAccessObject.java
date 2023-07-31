@@ -1,28 +1,18 @@
 package Database;
 import Models.Appointment;
-import main.JDBC;
-
-
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.*;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 /**
  * Class representing all the methods to query the appointments table
  * @author xavierloeraflores
  */
 public class AppointmentDataAccessObject {
-    
-
-
     /**
      * This function queries an appointment
      * @param _appointmentId the appointmentID int value
@@ -57,8 +47,6 @@ public class AppointmentDataAccessObject {
         }
         return null;
     }
-
-
 
     /**
      * This function queries a list of appointments
@@ -144,7 +132,6 @@ public class AppointmentDataAccessObject {
         String sql = "SELECT * FROM appointments";
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         ResultSet result = DAO.query(sql);
-
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime week = LocalDateTime.now().plusDays(8);
         while(result.next()){
@@ -321,8 +308,6 @@ public class AppointmentDataAccessObject {
         }
         return appointments;
     }
-
-
     /**
      * This function deletes an appointment record
      * @param _appointmentId the appointmentID int value
@@ -335,7 +320,6 @@ public class AppointmentDataAccessObject {
             System.out.println(error);
         }
     }
-
     /**
      * This function deletes an appointment record
      * @param _userId the userID int value
@@ -348,8 +332,6 @@ public class AppointmentDataAccessObject {
             System.out.println(error);
         }
     }
-
-
     /**
      * This function deletes an appointment record
      * @param _customerId the customerID int value
@@ -362,7 +344,6 @@ public class AppointmentDataAccessObject {
             System.out.println(error);
         }
     }
-
     /**
      * This function deletes an appointment record
      * @param _contactId the contactID int value
@@ -407,10 +388,7 @@ public class AppointmentDataAccessObject {
             String CustomerID =  _appointment.getCustomerId()+", ";
             String UserID =  _appointment.getUserId()+", ";
             String ContactID =  _appointment.getContactId()+")";
-
-
             String sqlValues = "VALUES("+Title+Description+Location+Type+Start+End+CreateDate+CreatedBy+LastUpdate+LastUpdatedBy+CustomerID+UserID+ContactID;
-
             String sql = sqlInsert + sqlValues;
             DAO.update(sql);
         } catch(Exception error){
@@ -446,18 +424,12 @@ public class AppointmentDataAccessObject {
             String CustomerID = "Customer_ID=" + _appointment.getCustomerId()+", ";
             String UserID = "User_ID=" + _appointment.getUserId()+", ";
             String ContactID = "Contact_ID=" + _appointment.getContactId();
-
-
             String sqlSet = "SET "+Title+Description+Location+Type+Start+End+LastUpdate+LastUpdatedBy+CustomerID+UserID+ContactID;
             String sqlWhere = " WHERE Appointment_ID = "+ _appointment.getAppointmentId();
-
             String sql = sqlUpdate + sqlSet + sqlWhere;
             DAO.update(sql);
         } catch(Exception error){
             System.out.println(error);
         }
     }
-
-
-
 }

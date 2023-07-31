@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
  * @author xavierloeraflores
  */
 public class User {
-
     private int userId;
     private String username;
     private String password;
@@ -15,10 +14,9 @@ public class User {
     private String createdBy;
     private LocalDateTime lastUpdate;
     private String lastUpdateBy;
-
     /**
      * Constructor method for the User object
-     * @param userId : the integer value of the userId to be set on the User object
+     * @param userId  the integer value of the userId to be set on the User object
      * @param username the username string value to be set on the User object
      * @param password the password string value to be set on the User object
      * @param createDate the createDate LocalDateTime value to be set on the User object
@@ -35,9 +33,6 @@ public class User {
         this.lastUpdate = lastUpdate;
         this.lastUpdateBy = lastUpdateBy;
     }
-
-
-
     //Getters
     /**
      * @return userId integer value on the User object
@@ -66,37 +61,31 @@ public class User {
     public LocalDateTime getCreateDate() {
         return this.createDate;
     }
-
     /**
      * @return the createdBy string value on the User object
      */
     public String getCreatedBy() {
         return this.createdBy;
     }
-
     /**
      * @return the lastUpdate LocalDateTime value on the User object
      */
     public LocalDateTime getLastUpdate() {
         return this.lastUpdate;
     }
-
     /**
      * @return the lastUpdateBy string value on the User object
      */
     public String getLastUpdateBy() {
         return this.lastUpdateBy;
     }
-
     //Setters
-
     /**
      * @param userId : the integer value of the userId to be set on the User object
      */
     public void setUserId(int userId) {
         this.userId = userId;
     }
-
 
     /**
      * @param username the username string value to be set on the User object
@@ -105,16 +94,12 @@ public class User {
         this.username = username;
     }
 
-
-
     /**
      * @param password the password string value to be set on the User object
      */
     public void setPassword(String password) {
         this.password = password;
     }
-
-
 
     /**
      * @param createDate the createDate LocalDateTime value to be set on the User object
@@ -123,8 +108,6 @@ public class User {
         this.createDate = createDate;
     }
 
-
-
     /**
      * @param createdBy the createdBy string value to be set on the User object
      */
@@ -132,16 +115,12 @@ public class User {
         this.createdBy = createdBy;
     }
 
-
-
     /**
      * @param lastUpdate the lastUpdate LocalDateTime value to be set on the User object
      */
     public void setLastUpdate(LocalDateTime lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
-
-
 
     /**
      * @param lastUpdateBy the lastUpdateBy string value to be set on the User object

@@ -17,7 +17,6 @@ public class Customer {
     private LocalDateTime lastUpdate;
     private String lastUpdatedBy;
     private int divisionId;
-
     /**
      * Constructor method for the Customer object
      * @param customerId the customerId integer value to be set on the Customer object
@@ -43,7 +42,6 @@ public class Customer {
         this.lastUpdatedBy = lastUpdatedBy;
         this.divisionId = divisionId;
     }
-
     //Getters
     /**
      * @return the customerId integer value on the Customer object
@@ -114,8 +112,6 @@ public class Customer {
     public int getDivisionId() {
         return this.divisionId;
     }
-
-
     //Setters
     /**
      * @param customerId the customerId integer value to be set on the Customer object
@@ -124,16 +120,12 @@ public class Customer {
         this.customerId = customerId;
     }
 
-
-
     /**
      * @param customerName the customerName string value to be set on the Customer object
      */
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
-
-
 
     /**
      * @param address the address string value to be set on the Customer object
@@ -142,16 +134,12 @@ public class Customer {
         this.address = address;
     }
 
-
-
     /**
      * @param postalCode the postalCode string value to be set on the Customer object
      */
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
-
-
 
     /**
      * @param phone the phone string value to be set on the Customer object
@@ -160,14 +148,12 @@ public class Customer {
         this.phone = phone;
     }
 
-
     /**
      * @param createDate the createDate LocalDateTime value to be set on the Customer object
      */
     public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
-
 
     /**
      * @param createdBy the createdBy string value to be set on the Customer object
@@ -176,8 +162,6 @@ public class Customer {
         this.createdBy = createdBy;
     }
 
-
-
     /**
      * @param lastUpdate the lastUpdate LocalDateTime value to be set on the Customer object
      */
@@ -185,15 +169,12 @@ public class Customer {
         this.lastUpdate = lastUpdate;
     }
 
-
-
     /**
      * @param lastUpdatedBy the lastUpdatedBy string value to be set on the Customer object
      */
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
     }
-
 
     /**
      * @param divisionId the divisionId integer value to be set on the Customer object

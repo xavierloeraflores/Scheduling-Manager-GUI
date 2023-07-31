@@ -1,7 +1,5 @@
 package Database;
 import Models.FirstLevelDivision;
-
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -14,7 +12,6 @@ import javafx.collections.ObservableList;
  * @author xavierloeraflores
  */
 public class DivisionDataAccessObject {
-
     /**
      *
      * @param divisionId the divisionID int value
@@ -34,17 +31,14 @@ public class DivisionDataAccessObject {
             LocalDateTime lastUpdateTime=lastUpdateTimestamp.toLocalDateTime();
             String lastUpdatedBy = result.getString("Last_Updated_By");
             int countryId = result.getInt("Country_ID");
-
             divisionResult = new FirstLevelDivision(_divisionId, division, createDateTime, createdBy, lastUpdateTime, lastUpdatedBy, countryId);
             return divisionResult;
         }
         return null;
     }
-
     /**
      * @return [ObservableList] of FirstLevelDivision objects
      */
-
     public static ObservableList<FirstLevelDivision> getAllDivisions() throws SQLException {
         String sql = "SELECT * FROM first_level_divisions";
         ObservableList<FirstLevelDivision> divisions = FXCollections.observableArrayList();
@@ -59,7 +53,6 @@ public class DivisionDataAccessObject {
             LocalDateTime lastUpdateTime=lastUpdateTimestamp.toLocalDateTime();
             String lastUpdatedBy = result.getString("Last_Updated_By");
             int countryId = result.getInt("Country_ID");
-
             FirstLevelDivision divisionResult = new FirstLevelDivision(_divisionId, division, createDateTime, createdBy, lastUpdateTime, lastUpdatedBy, countryId);
             divisions.add(divisionResult);
         }
@@ -86,7 +79,6 @@ public class DivisionDataAccessObject {
             LocalDateTime lastUpdateTime=lastUpdateTimestamp.toLocalDateTime();
             String lastUpdatedBy = result.getString("Last_Updated_By");
             int _countryId = result.getInt("Country_ID");
-
             FirstLevelDivision divisionResult = new FirstLevelDivision(divisionId, division, createDateTime, createdBy, lastUpdateTime, lastUpdatedBy, _countryId);
             divisions.add(divisionResult);
         }

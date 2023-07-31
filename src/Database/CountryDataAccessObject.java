@@ -1,7 +1,5 @@
 package Database;
 import Models.Country;
-
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -14,7 +12,6 @@ import javafx.collections.ObservableList;
  * @author xavierloeraflores
  */
 public class CountryDataAccessObject {
-
     /**
      *
      * @param countryId the countryID int value
@@ -57,15 +54,11 @@ public class CountryDataAccessObject {
             Timestamp lastUpdateTimestamp = result.getTimestamp("Last_Update");
             LocalDateTime lastUpdateTime=lastUpdateTimestamp.toLocalDateTime();
             String lastUpdatedBy = result.getString("Last_Updated_By");
-
             Country countryResult = new Country(_countryId, country, createDateTime, createdBy, lastUpdateTime, lastUpdatedBy);
             countries.add(countryResult);
         }
         return countries;
     }
-
-
-
 }
 
 

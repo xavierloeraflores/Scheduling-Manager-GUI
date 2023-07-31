@@ -5,34 +5,22 @@ import Database.ContactDataAccessObject;
 import Database.CustomerDataAccessObject;
 import Database.UserDataAccessObject;
 import Models.*;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXMLLoader;
-
 import javafx.event.ActionEvent;
-
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.Modality;
-
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.net.URL;
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.time.*;
 import java.util.ResourceBundle;
 import java.io.IOException;
 import java.util.Optional;
-
-
 
 /**
  * Controller class for the Appoinment.fmxl form.
@@ -40,8 +28,6 @@ import java.util.Optional;
  * @author xavierloeraflores
  */
 public class AppointmentController implements Initializable{
-
-
     @FXML
     private Label labelId;
     @FXML
@@ -71,8 +57,6 @@ public class AppointmentController implements Initializable{
     @FXML
     private Label labelType;
 
-
-
     @FXML 
     private TextField fieldTitle;
     @FXML 
@@ -90,7 +74,6 @@ public class AppointmentController implements Initializable{
     @FXML
     private TextField fieldType;
 
-    
     @FXML
     private DatePicker dateStart;
     @FXML
@@ -106,15 +89,10 @@ public class AppointmentController implements Initializable{
     private Button buttonSave;
     @FXML 
     private Button buttonCancel;
-
     private String language;
     private ResourceBundle rb;
     private boolean adding = true;
     private Appointment appointment;
-
-
-
-
 
     /**
      * Validates inputs for the Appointment
@@ -180,8 +158,6 @@ public class AppointmentController implements Initializable{
         if(!valid){
             errorMessage += rb.getString("ERROREMPTY") + "\n";
         }
-
-        //Checks for integers
         if (valid){
             if (!fieldStartHour.getText().matches("-?\\d+")){
                 valid = false;
@@ -200,13 +176,11 @@ public class AppointmentController implements Initializable{
                 errorMessage += rb.getString("AENDMIN") + "\n";
             }
         }
-
         if (valid){
             String _startHourString = fieldStartHour.getText();
             String _startMinString = fieldStartMin.getText();
             String _endHourString = fieldEndHour.getText();
             String _endMinString = fieldEndMin.getText();
-
             int _startHour = Integer.parseInt(_startHourString);
             int _startMin = Integer.parseInt(_startMinString);
             int _endHour = Integer.parseInt(_endHourString);
@@ -228,9 +202,6 @@ public class AppointmentController implements Initializable{
                 errorMessage += rb.getString("AENDMIN") + "\n";
             }
         }
-
-
-
         if (valid){
             LocalDate _startLocalDate = dateStart.getValue();
             LocalDate _endLocalDate = dateEnd.getValue();
@@ -238,7 +209,6 @@ public class AppointmentController implements Initializable{
             String _startMinString = fieldStartMin.getText();
             String _endHourString = fieldEndHour.getText();
             String _endMinString = fieldEndMin.getText();
-
             int _startHour = Integer.parseInt(_startHourString);
             int _startMin = Integer.parseInt(_startMinString);
             int _endHour = Integer.parseInt(_endHourString);
@@ -249,26 +219,17 @@ public class AppointmentController implements Initializable{
             int _endYear = _endLocalDate.getYear();
             int _endMonth = _endLocalDate.getMonthValue();
             int _endDay = _endLocalDate.getDayOfMonth();
-
             LocalDateTime _start = LocalDateTime.of(_startYear, _startMonth, _startDay, _startHour, _startMin);
             LocalDateTime _end = LocalDateTime.of(_endYear, _endMonth, _endDay, _endHour, _endMin);
-
             if(_start.isAfter(_end)){
                 errorMessage += rb.getString("ATIME") + "\n";
                 valid = false;
             }
-            String utcM = ""+ _startMonth;
-            String utcD = "" + _startDay;
-            if(_startMonth<10){ utcM = "0"+utcM;}
-            if(_startDay<10){utcD = "0"+utcD;}
             ZoneId ET_zoneId =ZoneId.of("America/New_York");
             ZonedDateTime zoneBStart = ZonedDateTime.of(_startYear, _startMonth, _startDay, 8, 0,0,0,ET_zoneId );
             ZonedDateTime zonedBEnd= ZonedDateTime.of(dateEnd.getValue().atTime(22, 0),ET_zoneId).withHour(22);
             ZonedDateTime zoneStart = ZonedDateTime.of(_start, LoginController.getTimezone().toZoneId());
             ZonedDateTime zoneEnd = ZonedDateTime.of(_end, LoginController.getTimezone().toZoneId());
-
-
-
             if(zoneStart.isBefore(zoneBStart) || zoneStart.isAfter(zonedBEnd)){
                 errorMessage += rb.getString("ABUSINESSHOURS") + "1\n";
                 valid = false;
@@ -277,7 +238,6 @@ public class AppointmentController implements Initializable{
                 errorMessage += rb.getString("ABUSINESSHOURS") + "2\n";
                 valid = false;
             }
-
             try {
                 Customer _customer = comboCustomer.getValue();
                 int _customerId = _customer.getCustomerId();
@@ -303,25 +263,17 @@ public class AppointmentController implements Initializable{
                         errorMessage += rb.getString("ACUSTOMEROVERLAP") + "\n";
                         valid = false;
                     }
-
-
                 }
-
             }catch(Exception err){
                 System.out.println(err);
             }
-
         }
-
-
         if(!valid){
             displayError(errorMessage);
             labelError.setText(errorMessage);
         }
-
         return valid;
     }
-
     /**
      * Handles the save logic for the Appointment
      */
@@ -341,9 +293,6 @@ public class AppointmentController implements Initializable{
             Contact _contact = comboContact.getValue();
             Customer _customer = comboCustomer.getValue();
             User _user = comboUser.getValue();
-
-
-
             int _contactId = _contact.getContactId();
             int _customerId = _customer.getCustomerId();
             int _userId = _user.getUserId();
@@ -357,21 +306,16 @@ public class AppointmentController implements Initializable{
             int _endYear = _endLocalDate.getYear();
             int _endMonth = _endLocalDate.getMonthValue();
             int _endDay = _endLocalDate.getDayOfMonth();
-
             LocalDateTime _start =  LocalDateTime.of(_startYear, _startMonth, _startDay, _startHour, _startMin);
             LocalDateTime _end = LocalDateTime.of(_endYear, _endMonth, _endDay, _endHour, _endMin);
-
             String _updatedBy = LoginController.getUser().getUsername();
             LocalDateTime _lastUpdate = LocalDateTime.now();
-
-
             if(adding){
                 Appointment _appointment = new Appointment(0, _title, _desc, _location, _type, _start, _end, _lastUpdate, _updatedBy, _lastUpdate,_updatedBy, _customerId, _userId, _contactId);
                 AppointmentDataAccessObject.addAppointment(_appointment);
                 openPage(actionEvent, "/Views/Main.fxml");
             }
             if(!adding) {
-
                 appointment.setStart(_start);
                 appointment.setEnd(_end);
                 appointment.setCustomerId(_customerId);
@@ -385,9 +329,7 @@ public class AppointmentController implements Initializable{
                 openPage(actionEvent, "/Views/Main.fxml");
             }
         }
-
     }
-
     /**
      * Maps the textFields with data
      */
@@ -403,16 +345,11 @@ public class AppointmentController implements Initializable{
             String _type = appointment.getType();
             LocalDateTime _start = appointment.getStart();
             LocalDateTime _end = appointment.getEnd();
-
-
             Contact _contact = ContactDataAccessObject.getContactByContactID(_contactId);
             Customer _customer = CustomerDataAccessObject.getCustomerByCustomerID(_customerId);
             User _user = UserDataAccessObject.getUserByUserID(_userId);
-
             LocalDate _dateStart = LocalDate.of(_start.getYear(),_start.getMonth(), _start.getDayOfMonth());
             LocalDate _dateEnd = LocalDate.of(_end.getYear(),_end.getMonth(), _end.getDayOfMonth());
-
-
             fieldTitle.setText(_title);
             fieldDescription.setText(_desc);
             fieldLocation.setText(_location);
@@ -421,16 +358,11 @@ public class AppointmentController implements Initializable{
             fieldStartMin.setText(""+ _start.getMinute());
             fieldEndHour.setText(""+_end.getHour());
             fieldEndMin.setText(""+_end.getMinute());
-
             dateStart.setValue(_dateStart);
             dateEnd.setValue(_dateEnd);
-
             comboCustomer.setValue(_customer);
             comboUser.setValue(_user);
             comboContact.setValue(_contact);
-
-
-
         }catch(Exception err){
             System.out.println(err);
         }
@@ -441,7 +373,6 @@ public class AppointmentController implements Initializable{
     public void mapLabels(){
         ResourceBundle _rb = LoginController.getRb();
         rb= _rb;
-
         String _save  = rb.getString("SAVE");
         String _cancel  = rb.getString("CANCEL");
         String _id = rb.getString("ID");
@@ -460,14 +391,11 @@ public class AppointmentController implements Initializable{
         String _selCustomer = rb.getString("APPOINTMENTSELCUSTOMER");
         String _autogen = rb.getString("AUTOGEN");
         String _type = rb.getString("TYPE");
-
-
         if(adding){
             _autogen = _autogen + MainController.getAllAppointments().size();
         }else{
             _autogen = _autogen + MainController.getAppointment().getAppointmentId();
         }
-
         buttonCancel.setText(_cancel);
         buttonSave.setText(_save);
         labelId.setText(_id);
@@ -487,8 +415,6 @@ public class AppointmentController implements Initializable{
         comboCustomer.setPromptText(_selCustomer);
         comboUser.setPromptText(_selUser);
     }
-
-
 
     /**
      * Initializes the FXML Screen 
@@ -510,10 +436,6 @@ public class AppointmentController implements Initializable{
         }catch(Exception err){
             System.out.println(err);
         }
-
-
-
-
     }
     /**
      * Handles the canceling functionality when a user presses the cancel button.
@@ -534,7 +456,6 @@ public class AppointmentController implements Initializable{
             openPage(actionEvent,"/Views/Main.fxml");
         }
     }
-
     /**
      * Utility function that is used to switch between pages
      * @param actionEvent JavaFX action event
@@ -547,7 +468,6 @@ public class AppointmentController implements Initializable{
         addPartStage.setScene(addPartScene);
         addPartStage.show();
     }
-
     /**
      * Utility function that is used to display errors
      * @param text String value text of the main text
@@ -560,5 +480,4 @@ public class AppointmentController implements Initializable{
         alert.showAndWait();
         labelError.setText(text);
     }
-
 }

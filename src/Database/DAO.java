@@ -4,14 +4,11 @@ import main.JDBC;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-
 /**
  * A class container functions for making SQL Database Queries
  * @author xavierloeraflores
  */
 public class DAO {
-
-
     /**
      * Function to make SQL database queries
      * @param sql the string value sql string query
@@ -41,7 +38,4 @@ public class DAO {
             System.out.println("Error: "+ error);
         }
     }
-
-
-
 }

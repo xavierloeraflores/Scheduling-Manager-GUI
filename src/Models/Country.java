@@ -72,8 +72,6 @@ public class Country {
     public String getLastUpdatedBy() {
         return this.lastUpdatedBy;
     }
-
-
     //Setters
     /**
      * @param countryId the countryId integer value to be set on the Country object
@@ -117,11 +115,9 @@ public class Country {
         this.lastUpdatedBy = lastUpdatedBy;
     }
 
-
     /**
      * @return Stringified country details
      */
     @Override
     public String toString(){return country;}
-
 }

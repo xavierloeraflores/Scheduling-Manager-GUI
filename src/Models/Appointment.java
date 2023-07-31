@@ -55,9 +55,7 @@ public class Appointment {
         this.userId = userId;
         this.contactId = contactId;
     }
-
     //Getters
-
     /**
      * @return the appointmentId integer value on the Appointment object
      */
@@ -156,9 +154,7 @@ public class Appointment {
         return this.contactId;
     }
 
-
     //Setters
-
     /**
      * @param appointmentId the appointmentId integer value to be set on the Appointment object
      */

@@ -31,7 +31,6 @@ public class JDBC {
                       System.out.println("Error:" + e.getMessage());
                   }
           }
-
             public static Connection getConnection() {
                 return connection;
             }
@@ -43,7 +42,6 @@ public class JDBC {
                      System.out.println(e.getMessage());
                  }
              }
-
        public static void makePreparedStatement(String sqlStatement, Connection conn) throws SQLException {
            if (conn != null)
                preparedStatement = conn.prepareStatement(sqlStatement);
@@ -56,7 +54,4 @@ public class JDBC {
            else System.out.println("Null reference to Prepared Statement");
            return null;
        }
-
-
-
 }

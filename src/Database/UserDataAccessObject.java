@@ -17,8 +17,6 @@ import javafx.collections.ObservableList;
  * @author xavierloeraflores
  */
 public class UserDataAccessObject {
-
-
     /**
      * @param username String value
      * @return the User object
@@ -37,13 +35,11 @@ public class UserDataAccessObject {
             Timestamp lastUpdateTimestamp = result.getTimestamp("Last_Update");
             LocalDateTime lastUpdateTime=lastUpdateTimestamp.toLocalDateTime();
             String lastUpdatedBy = result.getString("Last_Updated_By");
-
             userResult = new User(userId, _username, password, createDateTime, createdBy, lastUpdateTime, lastUpdatedBy);
             return userResult;
            }
         return null;
     }
-
 
     /**
      * 
@@ -64,7 +60,6 @@ public class UserDataAccessObject {
             Timestamp lastUpdateTimestamp = result.getTimestamp("Last_Update");
             LocalDateTime lastUpdateTime=lastUpdateTimestamp.toLocalDateTime();
             String lastUpdatedBy = result.getString("Last_Updated_By");
-
             userResult = new User(_userId, username, password, createDateTime, createdBy, lastUpdateTime, lastUpdatedBy);
             return userResult;
         }
@@ -75,7 +70,6 @@ public class UserDataAccessObject {
     /**
      * @return [ObservableList] of User objects
      */
-
     public static ObservableList<User> getAllUsers() throws SQLException {
         String sql = "SELECT * FROM users";
         ObservableList<User> users = FXCollections.observableArrayList();
@@ -90,7 +84,6 @@ public class UserDataAccessObject {
             Timestamp lastUpdateTimestamp = result.getTimestamp("Last_Update");
             LocalDateTime lastUpdateTime=lastUpdateTimestamp.toLocalDateTime();
             String lastUpdatedBy = result.getString("Last_Updated_By");
-
             User userResult = new User(_userId, username, password, createDateTime, createdBy, lastUpdateTime, lastUpdatedBy);
             users.add(userResult);
         }

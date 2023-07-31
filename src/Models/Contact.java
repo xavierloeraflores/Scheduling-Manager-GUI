@@ -49,15 +49,12 @@ public class Contact {
         this.contactId = contactId;
     }
 
-
     /**
      * @param contactName the contactName string value to be set on the Contact object
      */
     public void setContactName(String contactName) {
         this.contactName = contactName;
     }
-
-
 
     /**
      * @param email the email string value to be set on the Contact object

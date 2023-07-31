@@ -3,34 +3,20 @@ package Controllers;
 import main.Logger;
 import Models.User;
 import Database.UserDataAccessObject;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXMLLoader;
-
 import javafx.event.ActionEvent;
-
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.stage.Modality;
-
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-
-//import java.awt.event.ActionEvent;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.io.IOException;
-import java.util.Optional;
 import java.util.TimeZone;
-
-
 
 /**
  * Controller class for the Login.fmxl form.
@@ -38,8 +24,6 @@ import java.util.TimeZone;
  * @author xavierloeraflores
  */
 public class LoginController implements Initializable{
-
-
     @FXML
     private Label labelUsername;
     @FXML
@@ -55,7 +39,6 @@ public class LoginController implements Initializable{
     @FXML 
     private Label labelError;
 
-
     @FXML 
     private TextField fieldUsername;
     @FXML 
@@ -63,12 +46,10 @@ public class LoginController implements Initializable{
     @FXML
     private Button buttonLogin;
 
-
     static private String language;
     static private User user;
     static ResourceBundle rb;
     static private TimeZone timeZone = TimeZone.getDefault();
-
 
     /**
      * @return [TimeZone] timezone of the system
@@ -96,11 +77,6 @@ public class LoginController implements Initializable{
      */
     public static ResourceBundle getRb(){return rb;}
 
-
-
-
-
-
     /**
      * Utility function that is used to log any sign in attempts
      * @param valid Boolean value representing a successful log in
@@ -113,7 +89,6 @@ public class LoginController implements Initializable{
             System.out.println("Error:"+ error);
         }
     }
-
     /**
      * Function that handles authentication
      * @param actionEvent ActionEvent object that triggered this function
@@ -142,14 +117,12 @@ public class LoginController implements Initializable{
 
                 }
             }
-
             labelError.setText(errorMessage);
             if(!validLogin){logAuthentication(false, username);displayError(errorMessage );}
         }catch(Exception error){
             displayError(rb.getString("ERRORGENERIC") );
         }
     }
-
 
     /**
      * Function that correctly maps all the labels to the correct language
@@ -161,19 +134,14 @@ public class LoginController implements Initializable{
         String _language = rb.getString("LOGINLANGUAGE");
         String _login = rb.getString("LOGINLOGIN");
         String _userTimezone = timeZone.getID()+ " - " +timeZone.getDisplayName();
-
-
-
         labelUserLanguage.setText("en - English");
         if(getLanguage() == "fr"){labelUserLanguage.setText("fr - Français");}
-
         labelUsername.setText(_username);
         labelPassword.setText(_password);
         labelTimezone.setText(_timezone);
         labelLanguage.setText(_language);
         buttonLogin.setText(_login);
         labelUserTimezone.setText(_userTimezone);
-
     }
     /**
      * Maps the language from the system
@@ -190,8 +158,6 @@ public class LoginController implements Initializable{
         rb = _rb;
 
     }
-
-
     /**
      * Initializes the FXML Screen 
      * @param url parameter for the FXML Screen
@@ -206,11 +172,7 @@ public class LoginController implements Initializable{
         mapLabels();
 
     }
-
-
-
-
-        /**
+    /**
      * Utility function that is used to switch between pages
      * @param actionEvent JavaFX action event
      * @throws IOException
