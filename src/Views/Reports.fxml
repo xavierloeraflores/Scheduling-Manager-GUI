@@ -39,6 +39,47 @@
 <VBox prefHeight="722.0" prefWidth="1089.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <MenuBar VBox.vgrow="NEVER" />
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="544.0" prefWidth="797.0" VBox.vgrow="ALWAYS" />
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="544.0" prefWidth="797.0" VBox.vgrow="ALWAYS" >
+      <children>
+        <Pane prefHeight="291.0" prefWidth="982.0">
+          <children>
+            <TableView fx:id="tableA" layoutX="20.0" layoutY="30.0" prefHeight="252.0" prefWidth="838.0">
+              <columns>
+                <TableColumn fx:id="aColumnID" prefWidth="34.0" text="ID" />
+                <TableColumn fx:id="aColumnTitle" prefWidth="57.0" text="Title" />
+                <TableColumn fx:id="aColumnDescription" prefWidth="131.0" text="Description" />
+                <TableColumn fx:id="aColumnLocation" prefWidth="107.0" text="Location" />
+                <TableColumn fx:id="aColumnType" prefWidth="98.0" text="Type" />
+                <TableColumn fx:id="aColumnStart" text="Start" />
+                <TableColumn fx:id="aColumnEnd" prefWidth="71.0" text="End" />
+                <TableColumn fx:id="aColumnCustomer" prefWidth="81.0" text="Customer ID" />
+                <TableColumn fx:id="aColumnUser" prefWidth="62.0" text="User ID" />
+                <TableColumn fx:id="aColumnContact" prefWidth="116.0" text="Contact" />
+              </columns>
+            </TableView>
+            <Label fx:id="labelAppointments" layoutX="20.0" layoutY="6.0" text="Appointments" />
+          </children>
+        </Pane>
+      <Pane layoutX="-2.0" layoutY="291.0" prefHeight="279.0" prefWidth="982.0">
+      <children>
+        <Label fx:id="labelCustomerSchedule" layoutX="25.0" layoutY="6.0" text="Customer Scheduled Appointments" />
+        <TableView fx:id="tableC" layoutX="25.0" layoutY="31.0" prefHeight="239.0" prefWidth="838.0">
+        <columns>
+          <TableColumn fx:id="aColumnID" prefWidth="34.0" text="ID" />
+          <TableColumn fx:id="aColumnTitle" prefWidth="57.0" text="Title" />
+          <TableColumn fx:id="aColumnDescription" prefWidth="131.0" text="Description" />
+          <TableColumn fx:id="aColumnLocation" prefWidth="107.0" text="Location" />
+          <TableColumn fx:id="aColumnType" prefWidth="98.0" text="Type" />
+          <TableColumn fx:id="aColumnStart" text="Start" />
+          <TableColumn fx:id="aColumnEnd" prefWidth="71.0" text="End" />
+          <TableColumn fx:id="aColumnCustomer" prefWidth="81.0" text="Customer ID" />
+          <TableColumn fx:id="aColumnUser" prefWidth="62.0" text="User ID" />
+          <TableColumn fx:id="aColumnContact" prefWidth="116.0" text="Contact" />
+        </columns>
+        </TableView>
+      </children>
+      </Pane>
+      </children>
+    </AnchorPane>
   </children>
 </VBox>
