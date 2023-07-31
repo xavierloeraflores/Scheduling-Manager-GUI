@@ -132,6 +132,7 @@ public class MainController implements Initializable{
     /**
      * When the user presses the   Weekly  radio button, appointments list is updated
      * @param actionEvent JavaFX action event
+     * A LAMBDA expression is utilized in this method to fetch weekly appointments
      */
     @FXML
     private void setWeekly(ActionEvent actionEvent) {
@@ -150,6 +151,7 @@ public class MainController implements Initializable{
     /**
      * When the user presses the  Monthly radio button, appointments list is updated
      * @param actionEvent JavaFX action event
+     * A LAMBDA expression is utilized in this method to fetch monthly appointments
      */
     @FXML
     private void setMonthly(ActionEvent actionEvent) {
@@ -166,8 +168,9 @@ public class MainController implements Initializable{
         updateTables(fetchTables);
     }
     /**
-     * When the user presses the All radio button, appointments list is updated
+     * When the user presses the radioAll button, appointments list is updated
      * @param actionEvent JavaFX action event
+     * A LAMBDA expression is utilized in this method to fetch all appointments
      */
     @FXML
     private void setAll(ActionEvent actionEvent) {
@@ -184,7 +187,7 @@ public class MainController implements Initializable{
     }
     
     /**
-     * Interface for the running lambdas in teh displayError function
+     * Interface for the running LAMBDAs in the displayError function
      */
     interface FetchTables{
         ObservableList<Appointment> run();
@@ -224,6 +227,7 @@ public class MainController implements Initializable{
      * Sends the user to the Modify Customer screen.
      * @param actionEvent JavaFX action event
      * @throws IOException
+     * A LAMBDA expression is utilized in this method to set the error label
      */
     @FXML
     public void updateCustomer(ActionEvent actionEvent) throws IOException {
@@ -240,6 +244,8 @@ public class MainController implements Initializable{
      * Sends the user to the Modify Customer screen.
      * @param actionEvent JavaFX action event
      * @throws IOException
+     * A LAMBDA expression is utilized in this method to clear the error label
+     * A LAMBDA expression is utilized in this method to set the error label
      */
     @FXML
     public void deleteCustomer(ActionEvent actionEvent) throws IOException {
@@ -294,6 +300,7 @@ public class MainController implements Initializable{
      * Sends the user to the Modify Appointment screen.
      * @param actionEvent JavaFX action event
      * @throws IOException
+     * A LAMBDA expression is utilized in this method to clear the error label
      */
     @FXML
     public void updateAppointment(ActionEvent actionEvent) throws IOException {
@@ -310,6 +317,7 @@ public class MainController implements Initializable{
      * Sends the user to the Modify Appointment screen.
      * @param actionEvent JavaFX action event
      * @throws IOException
+     * A LAMBDA expression is utilized in this method to clear the error label
      */
     @FXML
     public void deleteAppointment(ActionEvent actionEvent) throws IOException {
@@ -484,7 +492,7 @@ public class MainController implements Initializable{
         addPartStage.show();
     }
     /**
-     * Interface for the running lambdas in teh displayError function
+     * Interface for the running LAMBDAs in teh displayError function
      */
     interface errorLabelFunc{
         void run(String err);
