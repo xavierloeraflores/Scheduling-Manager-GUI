@@ -110,7 +110,6 @@
           </children>
         </Pane>
         <Button fx:id="buttonReturn" onAction="#handleReturn" layoutX="898.0" layoutY="802.0" mnemonicParsing="false" text="Return" />
-        <Button fx:id="buttonReset" onAction="#handleReset" layoutX="898.0" layoutY="832.0" mnemonicParsing="false" text="Reset" />
       </children>
     </AnchorPane>
   </children>
