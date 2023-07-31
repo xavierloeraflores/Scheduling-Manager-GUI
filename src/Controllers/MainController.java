@@ -2,9 +2,7 @@ package Controllers;
 
 import Database.AppointmentDataAccessObject;
 import Database.CustomerDataAccessObject;
-import Database.UserDataAccessObject;
 import Models.Appointment;
-import Models.Country;
 import Models.Customer;
 import Models.User;
 import javafx.event.ActionEvent;
@@ -18,16 +16,11 @@ import javafx.stage.Modality;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import main.Logger;
-
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Optional;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -327,7 +320,6 @@ public class MainController implements Initializable{
                 displayError(rb.getString("MAINERRORSELECTAPPOINTMENT"), (str)->labelError.setText(""));
                 valid = false;
             }
-
             if(valid){
                 Alert alert = new Alert((Alert.AlertType.CONFIRMATION));
                 alert.initModality(Modality.NONE);
@@ -348,7 +340,6 @@ public class MainController implements Initializable{
             System.out.println(err);
         }
     }
-
 
     /**
      * Function that checks and alerts the user if they are within 15 minutes of an appointment

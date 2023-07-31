@@ -179,7 +179,7 @@ public class CustomerController implements Initializable{
     }
 
     /**
-     *
+     * Handles the combo box logix for selecting a country
      */
     public void handleCountrySelect(ActionEvent actionEvent){
         try{

@@ -43,7 +43,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="722.0" prefWidth="1089.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:controller="Controllers.ReportsController" prefHeight="722.0" prefWidth="1089.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <MenuBar VBox.vgrow="NEVER" />
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="544.0" prefWidth="797.0" VBox.vgrow="ALWAYS" >
@@ -64,14 +64,15 @@
                 <TableColumn fx:id="aColumnContact" prefWidth="116.0" text="Contact" />
               </columns>
             </TableView>
-            <Label fx:id="labelAppointments" layoutX="20.0" layoutY="6.0" text="Report A: Appointments by Type/Month" />
-            <ComboBox fx:id="comboMonth" layoutX="884.0" layoutY="66.0" prefWidth="150.0" promptText="Select Month" />
-            <ComboBox fx:id="comboType"  layoutX="882.0" layoutY="30.0" prefWidth="150.0" promptText="Select Type" />
+            <Label fx:id="labelReportA" layoutX="20.0" layoutY="6.0" text="Report A: Appointments by Type/Month" />
+            <ComboBox fx:id="comboMonth" onAction="#handleASelect" layoutX="884.0" layoutY="66.0" prefWidth="150.0" promptText="Select Month" />
+            <ComboBox fx:id="comboType" onAction="#handleASelect"  layoutX="882.0" layoutY="30.0" prefWidth="150.0" promptText="Select Type" />
+            <Label fx:id="labelTotalA" layoutX="898.0" layoutY="100.0" text="Total" />
           </children>
         </Pane>
       <Pane layoutX="-2.0" layoutY="291.0" prefHeight="279.0" prefWidth="982.0">
       <children>
-        <Label fx:id="labelCustomerSchedule" layoutX="25.0" layoutY="6.0" text="Report B: Customer Scheduled Appointments" />
+        <Label fx:id="labelReportB" layoutX="25.0" layoutY="6.0" text="Report B: Customer Scheduled Appointments" />
         <TableView fx:id="tableB" layoutX="25.0" layoutY="31.0" prefHeight="239.0" prefWidth="838.0">
         <columns>
           <TableColumn fx:id="bColumnID" prefWidth="34.0" text="ID" />
@@ -86,12 +87,13 @@
           <TableColumn fx:id="bColumnContact" prefWidth="116.0" text="Contact" />
         </columns>
         </TableView>
-        <ComboBox fx:id="comboCustomer"  layoutX="898.0" layoutY="70.0" prefWidth="150.0" promptText="Select Customer" />
+        <ComboBox fx:id="comboContact" onAction="#handleContactSelect"  layoutX="898.0" layoutY="70.0" prefWidth="150.0" promptText="Select Customer" />
+        <Label fx:id="labelTotalB" layoutX="898.0" layoutY="100.0" text="Total" />
       </children>
       </Pane>
         <Pane layoutX="-2.0" layoutY="600.0" prefHeight="279.0" prefWidth="982.0">
           <children>
-            <Label fx:id="labelCustomers" layoutX="25.0" layoutY="6.0" text="Report C: Customers by Country/Division" />
+            <Label fx:id="labelReportC" layoutX="25.0" layoutY="6.0" text="Report C: Customers by Country/Division" />
             <TableView fx:id="tableC" layoutX="25.0" layoutY="31.0" prefHeight="239.0" prefWidth="838.0">
               <columns>
                 <TableColumn fx:id="cColumnID" prefWidth="56.0" text="ID" />
@@ -102,11 +104,12 @@
                 <TableColumn fx:id="cColumnDivision" prefWidth="140.0" text="Division" />
               </columns>
             </TableView>
-            <ComboBox fx:id="comboCountry"  layoutX="898.0" layoutY="70.0" prefWidth="150.0" promptText="Select Country" />
-            <ComboBox fx:id="comboDivision"  layoutX="898.0" layoutY="100.0" prefWidth="150.0" promptText="Select Division" />
+            <ComboBox fx:id="comboCountry" onAction="#handleCountrySelect"  layoutX="898.0" layoutY="70.0" prefWidth="150.0" promptText="Select Country" />
+            <ComboBox fx:id="comboDivision" onAction="#handleDivisionSelect"  layoutX="898.0" layoutY="100.0" prefWidth="150.0" promptText="Select Division" />
+            <Label fx:id="labelTotalC" layoutX="898.0" layoutY="130.0" text="Total" />
           </children>
         </Pane>
-        <Button fx:id="buttonReturn" layoutX="898.0" layoutY="802.0" mnemonicParsing="false" text="Return" />
+        <Button fx:id="buttonReturn" onAction="#handleReturn" layoutX="898.0" layoutY="802.0" mnemonicParsing="false" text="Return" />
       </children>
     </AnchorPane>
   </children>
