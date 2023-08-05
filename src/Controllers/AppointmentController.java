@@ -5,11 +5,13 @@ import Database.ContactDataAccessObject;
 import Database.CustomerDataAccessObject;
 import Database.UserDataAccessObject;
 import Models.*;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXMLLoader;
 import javafx.event.ActionEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Modality;
 import javafx.scene.Scene;
@@ -89,10 +91,13 @@ public class AppointmentController implements Initializable{
     private Button buttonSave;
     @FXML 
     private Button buttonCancel;
+    @FXML
+    private VBox vbox;
     private String language;
     private ResourceBundle rb;
     private boolean adding = true;
     private Appointment appointment;
+    private boolean alerted = false;
 
     /**
      * Validates inputs for the Appointment
@@ -313,6 +318,11 @@ public class AppointmentController implements Initializable{
             if(adding){
                 Appointment _appointment = new Appointment(0, _title, _desc, _location, _type, _start, _end, _lastUpdate, _updatedBy, _lastUpdate,_updatedBy, _customerId, _userId, _contactId);
                 AppointmentDataAccessObject.addAppointment(_appointment);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle(rb.getString("ASAVETITLE"));
+                alert.setHeaderText(rb.getString("ASAVEHEADER"));
+                alert.setContentText(rb.getString("ASAVETEXT"));
+                alert.showAndWait();
                 openPage(actionEvent, "/Views/Main.fxml");
             }
             if(!adding) {
@@ -326,6 +336,11 @@ public class AppointmentController implements Initializable{
                 appointment.setLastUpdatedBy(_updatedBy);
                 appointment.setLastUpdate(_lastUpdate);
                 AppointmentDataAccessObject.updateAppointment(appointment);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle(rb.getString("ASAVETITLE"));
+                alert.setHeaderText(rb.getString("ASAVEHEADER"));
+                alert.setContentText(rb.getString("ASAVETEXT"));
+                alert.showAndWait();
                 openPage(actionEvent, "/Views/Main.fxml");
             }
         }
@@ -414,6 +429,52 @@ public class AppointmentController implements Initializable{
         comboContact.setPromptText(_selContact);
         comboCustomer.setPromptText(_selCustomer);
         comboUser.setPromptText(_selUser);
+    }
+    /**
+     * Function that checks and alerts the user if they are within 15 minutes of an appointment
+     */
+    public void appointmentAlert(){
+        if(!alerted) {
+            alerted = true;
+            try {
+                User user = LoginController.getUser();
+                int _userId = user.getUserId();
+                ObservableList<Appointment> userAppointments = FXCollections.observableArrayList();
+                userAppointments = AppointmentDataAccessObject.getAppointmentByUserID(_userId);
+                Boolean showAlert = false;
+                Appointment upcomingAppointment = null;
+                for (int i = 0; i < userAppointments.size(); i++) {
+                    Appointment curAppointment = userAppointments.get(i);
+                    LocalDateTime appointmentTime = curAppointment.getStart();
+                    LocalDateTime alertTime = LocalDateTime.now().plusMinutes(15);
+                    if (appointmentTime.isBefore(alertTime) && appointmentTime.isAfter(LocalDateTime.now())) {
+                        showAlert = true;
+                        upcomingAppointment = curAppointment;
+                    }
+                }
+                if (showAlert) {
+                    int _appointmentId = upcomingAppointment.getAppointmentId();
+                    LocalDateTime _start = upcomingAppointment.getStart();
+                    String _date = _start.getDayOfMonth() + "/" + _start.getMonthValue() + "/" + _start.getYear();
+                    String _time = _start.getHour() + ":" + _start.getMinute();
+                    String alertText = rb.getString("MAINAPPOINTMENTALERTTEXT");
+                    alertText += "\nID: " + _appointmentId + "\n" + _date + " " + _time;
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle(rb.getString("MAINAPPOINTMENTALERTTITLE"));
+                    alert.setHeaderText(rb.getString("MAINAPPOINTMENTALERTHEADER"));
+                    alert.setContentText(alertText);
+                    alert.showAndWait();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle(rb.getString("MAINNOAPPOINTMENTALERTTITLE"));
+                    alert.setHeaderText(rb.getString("MAINNOAPPOINTMENTALERTHEADER"));
+                    alert.setContentText(rb.getString("MAINNOAPPOINTMENTALERTTEXT"));
+                    alert.showAndWait();
+                }
+            } catch (Exception err) {
+                System.out.println(err);
+            }
+        }else{alerted=true;}
     }
 
     /**
