@@ -1,4 +1,9 @@
-Scheduling Manager GUI
+# Scheduling Manager GUI
+This was an assignment for a Software Engineering class where I was tasked to scheduling manager for a software company.
+
+[Java Documentation](https://xavierloeraflores.github.io/Scheduling-Manager-GUI/)
+
+
 This application manages the schedules for employees of a software company. It also stores data on Customers, Users, and Contacts all with respect to local timezones.
 The application connects to a mysql database and also features native language support for both english and french
 
