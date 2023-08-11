@@ -1,4 +1,5 @@
 # Scheduling Manager GUI
+
 This was an assignment for a Software Engineering class where I was tasked to scheduling manager for a software company.
 
 [Java Documentation](https://xavierloeraflores.github.io/Scheduling-Manager-GUI/)
